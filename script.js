@@ -86,6 +86,11 @@ for(var i=0;i<options.length;i++)
 		this.classList.remove("circle_item");
 	});
 	options[i].addEventListener("click",function(){
-		console.log(this.style.backgroundColor);
+		if(this.style.backgroundColor != answer.toLowerCase()){
+			console.log('Mismatch');
+		}
+		else{
+			console.log('GoodWork')
+		}
 	});
 }
