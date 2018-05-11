@@ -94,13 +94,17 @@ body{
 }
 
 .palette{
-	width: 50%;
+	width: 550px;
+	height: 350px;
+	margin: auto;
+	margin-top: 20px;
 }
 .palette .item{
-	width: 30%;
+	width: 28%;
+	height: 154px;
 	float: left;
-	margin: 1.66%;
-
+	margin: 2.66%;
+	background-color: #fff;
 
 }
 
