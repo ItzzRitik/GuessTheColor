@@ -105,12 +105,12 @@ body{
 	background-color: #fff;
 	border: 5px solid #fff;
 	border-radius: 19.25px;
-	transition: 0.1s ease;
+	transition: 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .palette .circle_item{
-	border-radius: 77px;
-	transition: 0.1s ease;
+	border-radius: 40px;
+	transition: 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 @media only screen and (max-width: 540px) {

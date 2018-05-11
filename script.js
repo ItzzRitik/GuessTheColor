@@ -38,7 +38,6 @@ function addMouseEvent(item){
 	});
 	item.addEventListener("mousedown",function(){
 		this.style.background = colorDark;
-		console.log(colorDark);
 	});
 	item.addEventListener("mouseup",function(){
 		this.style.background = color;
@@ -75,15 +74,18 @@ answer = generateCol(false);
 head.innerHTML=answer;
 
 var options=document.querySelectorAll(".palette .item");
+var place=Math.round(Math.random()*5);
 for(var i=0;i<options.length;i++)
 {
-	options[i].style.backgroundColor = generateCol(false);
+	if(i!=place){options[i].style.backgroundColor = generateCol(false);}
+	else{options[i].style.backgroundColor = answer;}
 	options[i].addEventListener("mouseover",function(){
 		this.classList.add("circle_item");
-		console.log(this);
 	});
 	options[i].addEventListener("mouseleave",function(){
 		this.classList.remove("circle_item");
-		console.log(this);
+	});
+	options[i].addEventListener("click",function(){
+		console.log(this.style.backgroundColor);
 	});
 }
