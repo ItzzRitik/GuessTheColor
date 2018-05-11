@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,400italic|Source+Code+Pro:400,700');
+@import url('https://fonts.googleapis.com/css?family=Quicksand:300,700');
+
+*{
+	margin:0;
+	padding:0;
+}
+body{
+	background-color: #121212;
+	font-family: 'Quicksand', sans-serif;
+}
+
+.hPane{
+	height: 160px;
+	padding-top: 10px; 
+	background-color: RGB(23, 119, 87);
+	overflow: hidden;
+}
+.hPane .hCenter{
+
+}
+.hPane .hText{
+	width: 100%;
+	text-align: center;
+	color: #fff;
+	font-size: 28px;
+	transition: 0.3s ease;
+	user-select: none;
+}
+.hPane .current{
+	font-size: 60px;
+	font-weight: bold;
+	margin-bottom: 3px;
+	transition: 0.3s ease;
+	user-select: text;
+}
+
+.controls{
+	height: 20px;
+	background-color: #fff;
+}
+.controls .contain{
+	width: 480px;	
+	height: 20px;
+	margin: auto;
+	transition: 0.3s ease;
+}
+.controls .newGame{
+	width: 33%;
+	height: 20px;
+	line-height: 20px;
+	font-size: 14px;
+	font-weight: bold;
+	float:left;
+}
+.controls .newText{
+	width: 90px;
+	text-align: center;
+	cursor: pointer;
+	user-select: none;
+}
+.controls .result{
+	width: 33%;
+	height: 20px;
+	line-height: 20px;
+	text-align: center;
+	font-size: 14px;
+	font-weight: bold;
+	display: inline-block;
+	margin:0 auto;
+	user-select: none;
+}
+.controls .difficulty{
+	width: 33%;
+	height: 20px;
+	line-height: 20px;
+	font-size: 14px;
+	font-weight: bold;
+	float:right;
+	margin-right: -2%;
+
+	background-color: #fff
+}
+.controls .easy, .controls .hard{
+	width: 50px;
+	height: 20px;
+	line-height: 20px;
+	font-size: 14px;
+	font-weight: bold;
+	text-align: center;
+	float:right;
+	cursor: pointer;
+	user-select: none;
+}
+
+@media only screen and (max-width: 540px) {
+	.controls .contain{
+		width: 80%;	
+	}
+
+	.hPane .first{
+		margin-top: 15px;
+	}
+	.hPane .current{
+		font-size: 40px;
+	}
+}
