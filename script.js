@@ -44,19 +44,30 @@ function addMouseEvent(item){
 	});
 	item.addEventListener("click",function(){
 		if(this.getAttribute("class")!="newText"){
-			if(this.getAttribute("class")=="easy"){
-				ease=easy;
-				easy.style.background = color;hard.style.background = "#fff";
-				easy.style.color = '#fff';hard.style.color = color;
-			}
-			else if(this.getAttribute("class")=="hard"){
-				ease=hard;
-				hard.style.background = color;easy.style.background = "#fff";
-				hard.style.color = '#fff';easy.style.color = color;
-			}
+			if(this.getAttribute("class")=="easy"){setEasy()}
+			else if(this.getAttribute("class")=="hard"){setHard()}
 		}
+		else{reloadJS();}
 	});
 }
+function setEasy(){
+	ease=easy;
+	easy.style.background = color;hard.style.background = "#fff";
+	easy.style.color = '#fff';hard.style.color = color;
+}
+function setHard(){
+	ease=hard;
+	hard.style.background = color;easy.style.background = "#fff";
+	hard.style.color = '#fff';easy.style.color = color;
+}
+function reloadJS()
+{
+	var head= document.getElementsByTagName('head')[0];
+	var script= document.createElement('script');
+	script.src= 'script.js';
+	head.appendChild(script);
+}
+
 color = generateCol(true);
 
 
@@ -87,7 +98,7 @@ for(var i=0;i<options.length;i++)
 	});
 	options[i].addEventListener("click",function(){
 		if(this.style.backgroundColor != answer.toLowerCase()){
-			console.log('Mismatch');
+			this.classList.add('fade_item');
 		}
 		else{
 			console.log('GoodWork')
