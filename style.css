@@ -78,8 +78,6 @@ body{
 	font-weight: bold;
 	float:right;
 	margin-right: -2%;
-
-	background-color: #fff
 }
 .controls .easy, .controls .hard{
 	width: 50px;
@@ -103,9 +101,16 @@ body{
 	width: 28%;
 	height: 154px;
 	float: left;
-	margin: 2.66%;
+	margin: 1.66%;
 	background-color: #fff;
+	border: 5px solid #fff;
+	border-radius: 19.25px;
+	transition: 0.1s ease;
+}
 
+.palette .circle_item{
+	border-radius: 77px;
+	transition: 0.1s ease;
 }
 
 @media only screen and (max-width: 540px) {

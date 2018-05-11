@@ -5,6 +5,7 @@ var head=document.querySelector('.hPane .current');
 var ease=hard;
 var color="RGB(23, 119, 87)";
 var colorDark="RGB(13, 109, 77)";
+var answer="RGB(23, 119, 87)";
 
 function generateCol(darkAsWell){
 	var limit=255,modify=70;;
@@ -59,6 +60,7 @@ function addMouseEvent(item){
 }
 color = generateCol(true);
 
+
 addMouseEvent(newGame);
 addMouseEvent(hard);
 addMouseEvent(easy);
@@ -68,6 +70,20 @@ setColor('.controls .contain .newGame',color,false);
 setColor('.controls .contain .easy',color,false);
 
 hard.style.background = color;hard.style.color = '#fff';
-head.innerHTML=color;
 
+answer = generateCol(false);
+head.innerHTML=answer;
 
+var options=document.querySelectorAll(".palette .item");
+for(var i=0;i<options.length;i++)
+{
+	options[i].style.backgroundColor = generateCol(false);
+	options[i].addEventListener("mouseover",function(){
+		this.classList.add("circle_item");
+		console.log(this);
+	});
+	options[i].addEventListener("mouseleave",function(){
+		this.classList.remove("circle_item");
+		console.log(this);
+	});
+}
