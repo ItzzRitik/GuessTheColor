@@ -93,6 +93,17 @@ body{
 	user-select: none;
 }
 
+.palette{
+	width: 50%;
+}
+.palette .item{
+	width: 30%;
+	float: left;
+	margin: 1.66%;
+
+
+}
+
 @media only screen and (max-width: 540px) {
 	.controls .contain{
 		width: 80%;	
