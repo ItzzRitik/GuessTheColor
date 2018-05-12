@@ -102,21 +102,14 @@ for(var i=0;i<options.length;i++)
 		this.classList.remove("circle_item");
 	});
 	options[i].addEventListener("click",function(){
-		if(this.style.backgroundColor != answer.toLowerCase()){
-			this.style.backgroundColor = '#fff'
-			this.classList.add('fade_item');
-		}
+		if(this.style.backgroundColor != answer.toLowerCase()){this.classList.add('fade_item');}
 		else{
-			for(var i=0;i<options.length;i++)
-			{
-				options[i].style.backgroundColor = '#fff'
-				options[i].classList.add('fade_item');
-			}
+			for(var i=0;i<options.length;i++){options[i].classList.add('fade_item');}
 			color=answer;
 			ease.style.background = color;
 			setColor('.hPane',color,true);
-			setColor('.controls .contain .newGame',color,false);
-			setColor('.controls .contain .easy',color,false);
+			document.querySelector('.controls').style.height = '0';
+			document.querySelector('.controls').style.transition = '1.2s cubic-bezier(0.86, 0, 0.07, 1)';
 
 			// document.body.removeChild(document.querySelector('.controls'));
 			// document.body.removeChild(document.querySelector('.paletteCon'));
@@ -131,10 +124,14 @@ for(var i=0;i<options.length;i++)
 				document.querySelector('.hPane .last').innerHTML = 'CONGRATULATIONS';
 			}, 600);
 
-			document.querySelector('hPane').style.display = 'block';
-			document.querySelector('.hCenter').style.transition = '1.8s easein'; 
+			// document.querySelector('hPane').classList.add('non');
+			// document.querySelector('.hCenter').style.transition = '1.8s easein'; 
 			// document.querySelector('.hCenter').style.transform = 'translateY(-150px)';
 		}
 	});
 	onResize();
+
+	document.querySelector('.lives').addEventListener('click',function(){
+		options[correct].click();
+	});
 }

@@ -11,6 +11,8 @@ body{
 	overflow: hidden;
 }
 
+.non{
+}
 .hPane{
 	height: 170px;
 	padding-top: 10px;
@@ -18,8 +20,6 @@ body{
 	overflow: hidden;
 	
 	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
 	justify-content: center;
 	align-items: center;
 
@@ -43,6 +43,7 @@ body{
 .controls{
 	height: 20px;
 	background-color: #fff;
+	overflow: hidden;
 }
 .controls .contain{
 	width: 480px;	
@@ -64,6 +65,7 @@ body{
 	text-align: center;
 	cursor: pointer;
 	user-select: none;
+	transition: 0.3s ease;
 }
 .controls .lives{
 	width: 33%;
@@ -96,6 +98,7 @@ body{
 	float:right;
 	cursor: pointer;
 	user-select: none;
+	transition: 0.3s ease;
 }
 .paletteCon{
 	width: 100%;
