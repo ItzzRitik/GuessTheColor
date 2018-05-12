@@ -101,21 +101,27 @@ for(var i=0;i<options.length;i++)
 		else{
 			for(var i=0;i<options.length;i++)
 			{
-				if(i!=correct){
-					options[i].style.backgroundColor = '#fff'
-					options[i].classList.add('fade_item');
-				}
+				options[i].style.backgroundColor = '#fff'
+				options[i].classList.add('fade_item');
 			}
-			//var x=document.querySelector();
-			setInterval(function(){
-				options[correct].classList.add('expand_item');
-			},10);
-			
 			color=answer;
 			ease.style.background = color;
 			setColor('.hPane',color,true);
 			setColor('.controls .contain .newGame',color,false);
 			setColor('.controls .contain .easy',color,false);
+
+			document.body.removeChild(document.querySelector('.controls'));
+			document.body.removeChild(document.querySelector('.palette'));
+
+			var headP=document.querySelector('.hPane').style;
+			headP.transition = '1.8s cubic-bezier(0.86, 0, 0.07, 1)';
+			headP.paddingTop = '0px';
+			headP.height = window.innerHeight+"px";
+
+			setTimeout(function() {
+				document.querySelector('.hCenter').style.transition = '1.8s cubic-bezier(0.86, 0, 0.07, 1)'; 
+				document.querySelector('.hCenter').style.transform = 'translateY(-100px)';
+			}, 3000);
 		}
 	});
 }

@@ -11,13 +11,16 @@ body{
 }
 
 .hPane{
-	height: 160px;
+	height: 170px;
 	padding-top: 10px; 
 	background-color: RGB(23, 119, 87);
 	overflow: hidden;
-}
-.hPane .hCenter{
 
+	display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
 }
 .hPane .hText{
 	width: 100%;
@@ -114,24 +117,14 @@ body{
 }
 .palette .fade_item{
 	opacity: 0;	
-	transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-.palette .expand_item{
-	width: 550px;
-	height: 350px;
-	display: -webkit-box;
-    -webkit-box-pack: center;
-    -webkit-box-align: center;
+	border: 5px solid transparent;
+	border-radius: 77px;
 	transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 @media only screen and (max-width: 540px) {
 	.controls .contain{
 		width: 80%;	
-	}
-
-	.hPane .first{
-		margin-top: 15px;
 	}
 	.hPane .current{
 		font-size: 40px;
