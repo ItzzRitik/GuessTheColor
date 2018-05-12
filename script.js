@@ -106,7 +106,11 @@ for(var i=0;i<options.length;i++)
 					options[i].classList.add('fade_item');
 				}
 			}
-			this.classList.add('expand_item');
+			//var x=document.querySelector();
+			setInterval(function(){
+				options[correct].classList.add('expand_item');
+			},10);
+			
 			color=answer;
 			ease.style.background = color;
 			setColor('.hPane',color,true);
