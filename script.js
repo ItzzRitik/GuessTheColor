@@ -3,16 +3,17 @@ var hard=document.querySelector(".controls .hard");
 var easy=document.querySelector(".controls .easy");
 var head=document.querySelector('.hPane .current');
 var options=document.querySelectorAll(".palette .item");
+var lives=document.querySelector('.lives');
 var ease=hard;
 var color="RGB(23, 119, 87)";
 var colorDark="RGB(13, 109, 77)";
 var answer="RGB(23, 119, 87)";
+var life=3;
 
 function onResize(){
 	var palette=document.querySelector('.palette').offsetWidth;
 	for(var i=0;i<options.length;i++)
 	{
-		console.log(palette);
 		options[i].style.border = (palette/100)+'px solid #fff'
 	}
 }
@@ -63,15 +64,68 @@ function setEasy(){
 	ease=easy;
 	easy.style.background = color;hard.style.background = "#fff";
 	easy.style.color = '#fff';hard.style.color = color;
+	life=5;
+	setLives(life);
 }
 function setHard(){
 	ease=hard;
 	hard.style.background = color;easy.style.background = "#fff";
 	hard.style.color = '#fff';easy.style.color = color;
+	life=3;
+	setLives(life);
 }
 function reloadJS()
 {
 	window.location.reload(false);
+}
+function setLives(num){
+	lives.innerHTML="";
+	for(var i=0;i<num;i++)
+	{
+		lives.innerHTML+="<i class='fas fa-heart'></i> ";
+	}
+}
+function cardClick(){
+	console.log(life-1);
+	if(this.style.backgroundColor != answer.toLowerCase()){
+		setLives(--life);
+		this.classList.add('fade_item');
+		this.removeEventListener('click',cardClick);
+		if(life==0){
+			gameOver();
+		}
+	}
+	else{
+		gameOver();
+	}
+}
+function gameOver(){
+	for(var i=0;i<options.length;i++){
+		options[i].classList.add('fade_itemC');
+	}
+	color=answer;
+	if(life==0){color="#555";}
+	setColor('.hPane',color,true);
+	document.querySelector('.controls').style.height = '0';
+	document.querySelector('.controls').style.transition = '1.2s cubic-bezier(0.86, 0, 0.07, 1)';
+
+	var headP=document.querySelector('.hPane').style;
+	headP.transition = '1.8s cubic-bezier(0.86, 0, 0.07, 1)';
+	headP.paddingTop = '0px';
+	headP.height = window.innerHeight+"px";
+
+	setTimeout(function() {
+		document.querySelector('.hPane .first').innerHTML = 'YOU WON';
+		document.querySelector('.hPane .last').innerHTML = 'CONGRATULATIONS';
+		if(life==0)
+		{
+			document.querySelector('.hPane .first').innerHTML = 'GAME OVER';
+			document.querySelector('.hPane .last').innerHTML = 'NO MORE LIVES';
+		}
+	}, 600);
+
+	document.querySelector('.hCenter').style.transition = '1.8s cubic-bezier(0.86, 0, 0.07, 1)'; 
+	document.querySelector('.hCenter').style.transform = 'translateY(-150px)';
 }
 
 color = generateCol(true);
@@ -80,14 +134,15 @@ color = generateCol(true);
 addMouseEvent(newGame);
 addMouseEvent(hard);
 addMouseEvent(easy);
+setLives(life);
 
 setColor('.hPane',color,true);
 setColor('.controls .contain .newGame',color,false);
 setColor('.controls .contain .easy',color,false);
 
-document.querySelectorAll('.fas')[0].style.color=color;
-document.querySelectorAll('.fas')[1].style.color=color;
-document.querySelectorAll('.fas')[2].style.color=color;
+document.querySelectorAll('.lives')[0].style.color=color;
+// document.querySelectorAll('.lives')[1].style.color=color;
+// document.querySelectorAll('.lives')[2].style.color=color;
 
 hard.style.background = color;hard.style.color = '#fff';
 
@@ -97,42 +152,22 @@ head.innerHTML=answer;
 var correct=Math.round(Math.random()*5);
 for(var i=0;i<options.length;i++)
 {
-	if(i!=correct){options[i].style.backgroundColor = generateCol(false);}
-	else{options[i].style.backgroundColor = answer;}
+	if(i!=correct){
+		options[i].style.backgroundColor = generateCol(false);
+	}
+	else{
+		options[i].style.backgroundColor = answer;
+	}
 	options[i].addEventListener("mouseover",function(){
 		this.classList.add("circle_item");
 	});
 	options[i].addEventListener("mouseleave",function(){
 		this.classList.remove("circle_item");
 	});
-	options[i].addEventListener("click",function(){
-		if(this.style.backgroundColor != answer.toLowerCase()){this.classList.add('fade_item');}
-		else{
-			for(var i=0;i<options.length;i++){
-				options[i].classList.add('fade_itemC');
-			}
-			color=answer;
-			setColor('.hPane',color,true);
-			document.querySelector('.controls').style.height = '0';
-			document.querySelector('.controls').style.transition = '1.2s cubic-bezier(0.86, 0, 0.07, 1)';
-
-			var headP=document.querySelector('.hPane').style;
-			headP.transition = '1.8s cubic-bezier(0.86, 0, 0.07, 1)';
-			headP.paddingTop = '0px';
-			headP.height = window.innerHeight+"px";
-
-			setTimeout(function() {
-				document.querySelector('.hPane .first').innerHTML = 'YOU WON';
-				document.querySelector('.hPane .last').innerHTML = 'CONGRATULATIONS';
-			}, 600);
-
-			document.querySelector('.hCenter').style.transition = '1.8s cubic-bezier(0.86, 0, 0.07, 1)'; 
-			document.querySelector('.hCenter').style.transform = 'translateY(-150px)';
-		}
-	});
+	options[i].addEventListener("click",cardClick);
 	onResize();
 
-	document.querySelector('.lives').addEventListener('click',function(){
+	lives.addEventListener('click',function(){
 		options[correct].click();
 	});
 }

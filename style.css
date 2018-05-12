@@ -76,6 +76,7 @@ body{
 	margin:0 auto;
 	margin-left: 20px;
 	user-select: none;
+	transition: 1.8s cubic-bezier(0.86, 0, 0.07, 1);
 }
 .controls .difficulty{
 	width: 33%;
