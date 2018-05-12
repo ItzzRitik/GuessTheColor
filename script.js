@@ -45,8 +45,8 @@ function addMouseEvent(item){
 	item.addEventListener("click",function(){
 		if(this.getAttribute("class")!="newText"){
 			if(this.getAttribute("class")=="easy"){setEasy()}
-			else if(this.getAttribute("class")=="hard"){setHard()}
-		}
+				else if(this.getAttribute("class")=="hard"){setHard()}
+			}
 		else{reloadJS();}
 	});
 }
@@ -62,10 +62,7 @@ function setHard(){
 }
 function reloadJS()
 {
-	var head= document.getElementsByTagName('head')[0];
-	var script= document.createElement('script');
-	script.src= 'script.js';
-	head.appendChild(script);
+	window.location.reload(false);
 }
 
 color = generateCol(true);
@@ -85,10 +82,10 @@ answer = generateCol(false);
 head.innerHTML=answer;
 
 var options=document.querySelectorAll(".palette .item");
-var place=Math.round(Math.random()*5);
+var correct=Math.round(Math.random()*5);
 for(var i=0;i<options.length;i++)
 {
-	if(i!=place){options[i].style.backgroundColor = generateCol(false);}
+	if(i!=correct){options[i].style.backgroundColor = generateCol(false);}
 	else{options[i].style.backgroundColor = answer;}
 	options[i].addEventListener("mouseover",function(){
 		this.classList.add("circle_item");
@@ -98,10 +95,23 @@ for(var i=0;i<options.length;i++)
 	});
 	options[i].addEventListener("click",function(){
 		if(this.style.backgroundColor != answer.toLowerCase()){
+			this.style.backgroundColor = '#fff'
 			this.classList.add('fade_item');
 		}
 		else{
-			console.log('GoodWork')
+			for(var i=0;i<options.length;i++)
+			{
+				if(i!=correct){
+					options[i].style.backgroundColor = '#fff'
+					options[i].classList.add('fade_item');
+				}
+			}
+			this.classList.add('expand_item');
+			color=answer;
+			ease.style.background = color;
+			setColor('.hPane',color,true);
+			setColor('.controls .contain .newGame',color,false);
+			setColor('.controls .contain .easy',color,false);
 		}
 	});
 }
