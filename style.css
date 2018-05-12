@@ -8,6 +8,7 @@
 body{
 	background-color: #121212;
 	font-family: 'Quicksand', sans-serif;
+	overflow: hidden;
 }
 
 .hPane{
@@ -15,12 +16,13 @@ body{
 	padding-top: 10px;
 	background-color: RGB(23, 119, 87);
 	overflow: hidden;
-
+	
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
 	justify-content: center;
 	align-items: center;
+
 }
 .hPane .hText{
 	width: 100%;
@@ -63,7 +65,7 @@ body{
 	cursor: pointer;
 	user-select: none;
 }
-.controls .result{
+.controls .lives{
 	width: 33%;
 	height: 20px;
 	line-height: 20px;
@@ -72,6 +74,7 @@ body{
 	font-weight: bold;
 	display: inline-block;
 	margin:0 auto;
+	margin-right: -20px;
 	user-select: none;
 }
 .controls .difficulty{
@@ -81,7 +84,7 @@ body{
 	font-size: 14px;
 	font-weight: bold;
 	float:right;
-	margin-right: -4%;
+	margin-right: -20px;
 }
 .controls .easy, .controls .hard{
 	width: 50px;
@@ -128,9 +131,9 @@ body{
 }
 .palette .fade_item{
 	opacity: 0;	
-	border: 5px solid transparent;
-	border-radius: 77px;
-	transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+	border: 0px solid transparent;
+	border-radius: 0;
+	transition: 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 @media only screen and (max-width: 600px) {

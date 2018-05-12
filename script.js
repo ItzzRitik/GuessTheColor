@@ -91,11 +91,8 @@ answer = generateCol(false);
 head.innerHTML=answer;
 
 var correct=Math.round(Math.random()*5);
-var palette=document.querySelector('.palette').offsetWidth;
 for(var i=0;i<options.length;i++)
 {
-	options[i].style.border = (palette/100)+'px solid #fff'
-
 	if(i!=correct){options[i].style.backgroundColor = generateCol(false);}
 	else{options[i].style.backgroundColor = answer;}
 	options[i].addEventListener("mouseover",function(){
@@ -121,8 +118,8 @@ for(var i=0;i<options.length;i++)
 			setColor('.controls .contain .newGame',color,false);
 			setColor('.controls .contain .easy',color,false);
 
-			document.body.removeChild(document.querySelector('.controls'));
-			document.body.removeChild(document.querySelector('.paletteCon'));
+			// document.body.removeChild(document.querySelector('.controls'));
+			// document.body.removeChild(document.querySelector('.paletteCon'));
 
 			var headP=document.querySelector('.hPane').style;
 			headP.transition = '1.8s cubic-bezier(0.86, 0, 0.07, 1)';
@@ -133,8 +130,11 @@ for(var i=0;i<options.length;i++)
 				document.querySelector('.hPane .first').innerHTML = 'YOU WON';
 				document.querySelector('.hPane .last').innerHTML = 'CONGRATULATIONS';
 			}, 600);
-			document.querySelector('.hCenter').style.transition = '1.8s cubic-bezier(0.86, 0, 0.07, 1)'; 
-			document.querySelector('.hCenter').style.transform = 'translateY(-100px)';
+
+			document.querySelector('hPane').style.display = 'block';
+			document.querySelector('.hCenter').style.transition = '1.8s easein'; 
+			// document.querySelector('.hCenter').style.transform = 'translateY(-150px)';
 		}
 	});
+	onResize();
 }
