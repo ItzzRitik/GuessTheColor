@@ -12,7 +12,7 @@ body{
 }
 
 .hPane{
-	height: 170px;
+	height: 200px;
 	padding-top: 10px;
 	background-color: RGB(23, 119, 87);
 	overflow: hidden;
@@ -74,7 +74,7 @@ body{
 	font-weight: bold;
 	display: inline-block;
 	margin:0 auto;
-	margin-right: -20px;
+	margin-left: 20px;
 	user-select: none;
 }
 .controls .difficulty{
