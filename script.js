@@ -104,14 +104,13 @@ for(var i=0;i<options.length;i++)
 	options[i].addEventListener("click",function(){
 		if(this.style.backgroundColor != answer.toLowerCase()){this.classList.add('fade_item');}
 		else{
-			for(var i=0;i<options.length;i++){options[i].classList.add('fade_item');}
+			for(var i=0;i<options.length;i++){
+				options[i].classList.add('fade_itemC');
+			}
 			color=answer;
 			setColor('.hPane',color,true);
 			document.querySelector('.controls').style.height = '0';
 			document.querySelector('.controls').style.transition = '1.2s cubic-bezier(0.86, 0, 0.07, 1)';
-
-			// document.body.removeChild(document.querySelector('.controls'));
-			// document.body.removeChild(document.querySelector('.paletteCon'));
 
 			var headP=document.querySelector('.hPane').style;
 			headP.transition = '1.8s cubic-bezier(0.86, 0, 0.07, 1)';
@@ -123,14 +122,13 @@ for(var i=0;i<options.length;i++)
 				document.querySelector('.hPane .last').innerHTML = 'CONGRATULATIONS';
 			}, 600);
 
-			// document.querySelector('hPane').classList.add('non');
-			// document.querySelector('.hCenter').style.transition = '1.8s easein'; 
-			// document.querySelector('.hCenter').style.transform = 'translateY(-150px)';
+			document.querySelector('.hCenter').style.transition = '1.8s cubic-bezier(0.86, 0, 0.07, 1)'; 
+			document.querySelector('.hCenter').style.transform = 'translateY(-150px)';
 		}
 	});
 	onResize();
 
 	document.querySelector('.lives').addEventListener('click',function(){
-		// options[correct].click();
+		options[correct].click();
 	});
 }
