@@ -8,6 +8,7 @@
 body{
 	background-color: #121212;
 	font-family: 'Quicksand', sans-serif;
+	overflow: hidden;
 }
 
 .hPane{
@@ -17,10 +18,10 @@ body{
 	overflow: hidden;
 
 	display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
 }
 .hPane .hText{
 	width: 100%;
@@ -95,20 +96,26 @@ body{
 }
 
 .palette{
-	width: 550px;
-	height: 350px;
+	width: 100%;
+	max-width: 550px;
+	height: 100%;
 	margin: auto;
 	margin-top: 20px;
+	overflow: hidden;
 }
 .palette .item{
 	width: 28%;
-	height: 154px;
 	float: left;
 	margin: 1.66%;
 	background-color: #fff;
 	border: 5px solid #fff;
 	border-radius: 19.25px;
 	transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.palette .item:after {
+	content: "";
+	display: block;
+	padding-bottom: 100%;
 }
 
 .palette .circle_item{
@@ -122,11 +129,14 @@ body{
 	transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-@media only screen and (max-width: 540px) {
+@media only screen and (max-width: 600px) {
 	.controls .contain{
 		width: 80%;	
 	}
 	.hPane .current{
 		font-size: 40px;
+	}
+	.palette .item{
+		margin: 1.4%;
 	}
 }
