@@ -122,7 +122,7 @@ for(var i=0;i<options.length;i++)
 			setColor('.controls .contain .easy',color,false);
 
 			document.body.removeChild(document.querySelector('.controls'));
-			document.body.removeChild(document.querySelector('.palette'));
+			document.body.removeChild(document.querySelector('.paletteCon'));
 
 			var headP=document.querySelector('.hPane').style;
 			headP.transition = '1.8s cubic-bezier(0.86, 0, 0.07, 1)';
