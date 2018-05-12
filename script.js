@@ -85,6 +85,10 @@ setColor('.hPane',color,true);
 setColor('.controls .contain .newGame',color,false);
 setColor('.controls .contain .easy',color,false);
 
+document.querySelectorAll('.fas')[0].style.color=color;
+document.querySelectorAll('.fas')[1].style.color=color;
+document.querySelectorAll('.fas')[2].style.color=color;
+
 hard.style.background = color;hard.style.color = '#fff';
 
 answer = generateCol(false);
