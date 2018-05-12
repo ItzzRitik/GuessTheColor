@@ -8,7 +8,8 @@ var ease=hard;
 var color="RGB(23, 119, 87)";
 var colorDark="RGB(13, 109, 77)";
 var answer="RGB(23, 119, 87)";
-var life=3;
+var life=2;
+var started=false;
 
 function onResize(){
 	var palette=document.querySelector('.palette').offsetWidth;
@@ -64,14 +65,14 @@ function setEasy(){
 	ease=easy;
 	easy.style.background = color;hard.style.background = "#fff";
 	easy.style.color = '#fff';hard.style.color = color;
-	life=5;
+	life=3;
 	setLives(life);
 }
 function setHard(){
 	ease=hard;
 	hard.style.background = color;easy.style.background = "#fff";
 	hard.style.color = '#fff';easy.style.color = color;
-	life=3;
+	life=2;
 	setLives(life);
 }
 function reloadJS()
@@ -86,7 +87,11 @@ function setLives(num){
 	}
 }
 function cardClick(){
-	console.log(life-1);
+	if(!started){
+		started=true;
+		easy.style.pointerEvents='none';
+		hard.style.pointerEvents='none';
+	}
 	if(this.style.backgroundColor != answer.toLowerCase()){
 		setLives(--life);
 		this.classList.add('fade_item');

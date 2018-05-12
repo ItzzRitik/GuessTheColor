@@ -76,7 +76,7 @@ body{
 	margin:0 auto;
 	margin-left: 20px;
 	user-select: none;
-	transition: 1.8s cubic-bezier(0.86, 0, 0.07, 1);
+	transition: 1.8s cubic-bezier(0.86, 0, 0.07, 1)
 }
 .controls .difficulty{
 	width: 33%;
@@ -110,7 +110,7 @@ body{
 }
 .palette{
 	width: 100%;
-	max-width: 560px;
+	max-width: 400px;
 	height: 100%;
 	margin: auto;
 	margin-top: 20px;
@@ -126,6 +126,10 @@ body{
 	content: "";
 	display: block;
 	padding-bottom: 100%;
+}
+.palette .circle_item{
+	border-radius: 100px;
+	transition: 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 .palette .fade_item{
 	opacity: 0;	
