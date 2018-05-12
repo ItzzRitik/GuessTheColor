@@ -106,7 +106,6 @@ for(var i=0;i<options.length;i++)
 		else{
 			for(var i=0;i<options.length;i++){options[i].classList.add('fade_item');}
 			color=answer;
-			ease.style.background = color;
 			setColor('.hPane',color,true);
 			document.querySelector('.controls').style.height = '0';
 			document.querySelector('.controls').style.transition = '1.2s cubic-bezier(0.86, 0, 0.07, 1)';
@@ -132,6 +131,6 @@ for(var i=0;i<options.length;i++)
 	onResize();
 
 	document.querySelector('.lives').addEventListener('click',function(){
-		options[correct].click();
+		// options[correct].click();
 	});
 }
