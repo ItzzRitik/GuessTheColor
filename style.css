@@ -12,8 +12,7 @@ body{
 
 .hPane{
 	height: 170px;
-	padding-top: 10px; 
-	padding-right: 10px;
+	padding-top: 10px;
 	background-color: RGB(23, 119, 87);
 	overflow: hidden;
 
@@ -55,6 +54,7 @@ body{
 	line-height: 20px;
 	font-size: 14px;
 	font-weight: bold;
+	margin-left: -20px;
 	float:left;
 }
 .controls .newText{
@@ -81,7 +81,7 @@ body{
 	font-size: 14px;
 	font-weight: bold;
 	float:right;
-	margin-right: -2%;
+	margin-right: -4%;
 }
 .controls .easy, .controls .hard{
 	width: 50px;
