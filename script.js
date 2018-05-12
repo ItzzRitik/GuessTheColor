@@ -119,9 +119,13 @@ for(var i=0;i<options.length;i++)
 			headP.height = window.innerHeight+"px";
 
 			setTimeout(function() {
+				document.querySelector('.hPane .first').innerHTML = 'YOU WON';
+				document.querySelector('.hPane .last').innerHTML = 'CONGRATULATIONS';
+			}, 1000);
+			setTimeout(function() {
 				document.querySelector('.hCenter').style.transition = '1.8s cubic-bezier(0.86, 0, 0.07, 1)'; 
 				document.querySelector('.hCenter').style.transform = 'translateY(-100px)';
-			}, 3000);
+			}, 2000);
 		}
 	});
 }
