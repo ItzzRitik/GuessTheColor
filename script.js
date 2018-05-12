@@ -2,11 +2,20 @@ var newGame=document.querySelector(".controls .newText");
 var hard=document.querySelector(".controls .hard");
 var easy=document.querySelector(".controls .easy");
 var head=document.querySelector('.hPane .current');
+var options=document.querySelectorAll(".palette .item");
 var ease=hard;
 var color="RGB(23, 119, 87)";
 var colorDark="RGB(13, 109, 77)";
 var answer="RGB(23, 119, 87)";
 
+function onResize(){
+	var palette=document.querySelector('.palette').offsetWidth;
+	for(var i=0;i<options.length;i++)
+	{
+		console.log(palette);
+		options[i].style.border = (palette/100)+'px solid #fff'
+	}
+}
 function generateCol(darkAsWell){
 	var limit=255,modify=70;;
 	var r=Math.floor(Math.random()*limit);
@@ -81,10 +90,12 @@ hard.style.background = color;hard.style.color = '#fff';
 answer = generateCol(false);
 head.innerHTML=answer;
 
-var options=document.querySelectorAll(".palette .item");
 var correct=Math.round(Math.random()*5);
+var palette=document.querySelector('.palette').offsetWidth;
 for(var i=0;i<options.length;i++)
 {
+	options[i].style.border = (palette/100)+'px solid #fff'
+
 	if(i!=correct){options[i].style.backgroundColor = generateCol(false);}
 	else{options[i].style.backgroundColor = answer;}
 	options[i].addEventListener("mouseover",function(){

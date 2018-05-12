@@ -8,12 +8,12 @@
 body{
 	background-color: #121212;
 	font-family: 'Quicksand', sans-serif;
-	overflow: hidden;
 }
 
 .hPane{
 	height: 170px;
 	padding-top: 10px; 
+	padding-right: 10px;
 	background-color: RGB(23, 119, 87);
 	overflow: hidden;
 
@@ -94,21 +94,26 @@ body{
 	cursor: pointer;
 	user-select: none;
 }
-
+.paletteCon{
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+}
 .palette{
 	width: 100%;
-	max-width: 550px;
+	max-width: 560px;
 	height: 100%;
 	margin: auto;
 	margin-top: 20px;
-	overflow: hidden;
 }
 .palette .item{
 	width: 28%;
 	float: left;
-	margin: 1.66%;
-	background-color: #fff;
-	border: 5px solid #fff;
+	margin: 1.66667%;
 	border-radius: 19.25px;
 	transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
@@ -117,7 +122,6 @@ body{
 	display: block;
 	padding-bottom: 100%;
 }
-
 .palette .circle_item{
 	border-radius: 40px;
 	transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -135,8 +139,5 @@ body{
 	}
 	.hPane .current{
 		font-size: 40px;
-	}
-	.palette .item{
-		margin: 1.4%;
 	}
 }
