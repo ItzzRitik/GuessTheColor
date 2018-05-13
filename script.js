@@ -1,23 +1,8 @@
-var newGame=document.querySelector(".controls .newText");
-var hard=document.querySelector(".controls .hard");
-var easy=document.querySelector(".controls .easy");
-var head=document.querySelector('.hPane .current');
-var options=document.querySelectorAll(".palette .item");
-var lives=document.querySelector('.lives');
-var replay=document.querySelector('.replay');
-var ease=hard;
-var color="RGB(23, 119, 87)";
-var colorDark="RGB(13, 109, 77)";
-var answer="RGB(23, 119, 87)";
-var life=2;
-var started=false;
+var newGame,hard,easy,head,options,livesreplay,ease,color,colorDark;
+var header,palette,answer,life,started;
 
 function onResize(){
-	var palette=document.querySelector('.palette').offsetWidth;
-	for(var i=0;i<options.length;i++)
-	{
-		options[i].style.border = (palette/100)+'px solid #fff'
-	}
+	setPaletteSize();
 }
 function generateCol(darkAsWell){
 	var limit=255,modify=70;;
@@ -115,10 +100,9 @@ function gameOver(){
 	document.querySelector('.controls').style.height = '0';
 	document.querySelector('.controls').style.transition = '1.2s cubic-bezier(0.86, 0, 0.07, 1)';
 
-	var headP=document.querySelector('.hPane').style;
-	headP.transition = '1.8s cubic-bezier(0.86, 0, 0.07, 1)';
-	headP.paddingTop = '0px';
-	headP.height = window.innerHeight+"px";
+	header.style.transition = '1.8s cubic-bezier(0.86, 0, 0.07, 1)';
+	header.style.paddingTop = '0px';
+	header.style.height = window.innerHeight+"px";
 
 	setTimeout(function() {
 		document.querySelector('.hPane .first').innerHTML = 'YOU WON';
@@ -137,55 +121,74 @@ function gameOver(){
 	document.querySelector('.hCenter').style.transition = '1.8s cubic-bezier(0.86, 0, 0.07, 1)'; 
 	document.querySelector('.hCenter').style.transform = 'translateY(-100px)';
 }
-
-color = generateCol(true);
-
-
-addMouseEvent(newGame);
-addMouseEvent(hard);
-addMouseEvent(easy);
-setLives(life);
-
-setColor('.hPane',color,true);
-setColor('.controls .contain .newGame',color,false);
-setColor('.controls .contain .easy',color,false);
-
-document.querySelectorAll('.lives')[0].style.color=color;
-
-hard.style.background = color;hard.style.color = '#fff';
-
-answer = generateCol(false);
-head.innerHTML=answer;
-
-replay.addEventListener("mousedown",function(){
-	this.style.backgroundColor = "rgba(255, 255, 255, 0.5)";
-});
-replay.addEventListener("mouseup",function(){
-	this.style.backgroundColor = "rgba(255, 255, 255, 0.2)";
-});
-replay.addEventListener("click",function(){
-	reload();
-});
-
-var correct=Math.round(Math.random()*5);
-for(var i=0;i<options.length;i++)
-{
-	if(i!=correct){
-		options[i].style.backgroundColor = generateCol(false);
+function setPaletteSize(){
+	var gSize=window.innerHeight-header.offsetHeight-20;
+	palette.style.height = gSize;
+	palette.style.width = window.innerWidth;
+	console.log(window.innerWidth);
+	for(var i=0;i<options.length;i++)
+	{
+		options[i].style.border = (palette.offsetWidth/100)+'px solid #fff'
 	}
-	else{
-		options[i].style.backgroundColor = answer;
-	}
-	options[i].addEventListener("mouseover",function(){
-		this.classList.add("circle_item");
-	});
-	options[i].addEventListener("mouseleave",function(){
-		this.classList.remove("circle_item");
-	});
-	options[i].addEventListener("click",cardClick);
-	onResize();
-
-	lives.addEventListener('click',function(){
-		//options[correct].click();
-	});
 }
+
+function main(){
+	newGame=document.querySelector(".controls .newText");
+	hard=document.querySelector(".controls .hard");
+	easy=document.querySelector(".controls .easy");
+	header=document.querySelector('.hPane');
+	head=document.querySelector('.hPane .current');
+	palette=document.querySelector('.palette');
+	options=document.querySelectorAll(".palette .item");
+	lives=document.querySelector('.lives');
+	replay=document.querySelector('.replay');
+	ease=hard;
+	life=2;
+	started=false;
+	color = generateCol(true);
+
+	addMouseEvent(newGame);
+	addMouseEvent(hard);
+	addMouseEvent(easy);
+	setLives(life);
+
+	setColor('.hPane',color,true);
+	setColor('.controls .contain .newGame',color,false);
+	setColor('.controls .contain .easy',color,false);
+	setColor('.lives',color,false);
+
+	hard.style.background = color;
+	hard.style.color = '#fff';
+
+	answer = generateCol(false);
+	head.innerHTML=answer;
+
+	replay.addEventListener("mousedown",function(){
+		this.style.backgroundColor = "rgba(255, 255, 255, 0.5)";
+	});
+
+	replay.addEventListener("mouseup",function(){
+		this.style.backgroundColor = "rgba(255, 255, 255, 0.2)";
+	});
+	replay.addEventListener("click",function(){
+		reload();
+	});
+
+	var correct=Math.round(Math.random()*5);
+	for(var i=0;i<options.length;i++)
+	{
+		if(i!=correct){
+			options[i].style.backgroundColor = generateCol(false);
+		}
+		else{
+			options[i].style.backgroundColor = answer;
+		}
+		options[i].addEventListener("click",cardClick);
+		onResize();
+
+		lives.addEventListener('click',function(){
+			//options[correct].click();
+		});
+	}
+}
+main();
