@@ -133,7 +133,7 @@ function setPaletteSize(){
 		options[i].style.width = (cardSize*0.28)+'px';
 		options[i].style.height = (cardSize*0.28)+'px';
 		options[i].style.border = (cardSize*0.008)+'px solid #fff';
-		options[i].style.margin = (cardSize*0.01866)+'px';
+		options[i].style.margin = (cardSize*0.015)+'px';
 		options[i].style.borderRadius = (cardSize*0.057)+'px';
 		console.log(cardSize+" = "+options[i].style.borderRadius);
 	}
