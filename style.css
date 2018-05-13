@@ -49,16 +49,16 @@ body{
 }
 .controls .newGame{
 	width: 33%;
-	height: 20px;
-	line-height: 20px;
-	font-size: 14px;
-	font-weight: bold;
 	margin-left: -20px;
 	float:left;
 }
 .controls .newText{
 	width: 90px;
 	text-align: center;
+	height: 20px;
+	line-height: 20px;
+	font-size: 14px;
+	font-weight: bold;
 	cursor: pointer;
 	user-select: none;
 	transition: 0.3s ease;
@@ -160,5 +160,14 @@ body{
 	}
 	.hPane .current{
 		font-size: 40px;
+	}
+	.controls .easy, .controls .hard{
+		width: 40px;
+		font-size: 12px;
+	}
+	.controls .newText{
+		width: 75px;
+		font-size: 12px;
+		font-weight: bold;
 	}
 }
