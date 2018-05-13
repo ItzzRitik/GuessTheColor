@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,400italic|Source+Code+Pro:400,700');
+@import url('https://fonts.googleapis.com/css?family=Fira+Mono');
 @import url('https://fonts.googleapis.com/css?family=Quicksand:300,700');
 
 *{
@@ -11,6 +11,10 @@ body{
 	overflow: hidden;
 }
 
+.splash{
+	height: 100%;
+	width: 100%;
+}
 .hPane{
 	height: 180px;
 	padding-top: 5px;
@@ -25,15 +29,50 @@ body{
 	text-align: center;
 	color: #fff;
 	font-size: 28px;
-	transition: 0.3s ease;
 	user-select: none;
+	-webkit-font-smoothing: antialiased;
 }
 .hPane .current{
 	font-size: 60px;
 	font-weight: bold;
-	margin-bottom: 3px;
-	transition: 0.3s ease;
 	user-select: text;
+}
+.hPane .current span{
+	float: left;
+	text-align: center;
+}
+.hPane .current .r, .hPane .current .g, .hPane .current .b{
+	width: 102px;
+	
+}
+.hPane .play{
+	position:fixed;
+	pointer-events: none;
+	width: 75px;
+	height: 75px;
+	border-radius: 75px;
+	top: 60%;
+	left: 50%;
+	border: 2px solid rgba(255,255,255,0);
+	margin-left: -45px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: 0.2s ease;
+}
+.hPane .play:hover{
+	border: 2px solid rgba(255,255,255,255);
+	transition: 0.3s ease;
+}
+.hPane .play img{
+	width: 0px;
+	height: 0px;
+	padding-left: 10px;
+}
+.hPane .play .img_grow{
+	width: 60px;
+	height: 60px;
+	transition: 0.3s ease;
 }
 
 .controls{
@@ -123,7 +162,6 @@ body{
 	opacity: 0;	
 	border: 0px solid transparent;
 	border-radius: 0;
-	transition: 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 .palette .fade_itemC{
 	opacity: 0;	
@@ -152,6 +190,7 @@ body{
 	height: 35px;
 	animation:spin 4s linear infinite;
 }
+
 @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
 
 @media only screen and (max-width: 600px) {
@@ -169,5 +208,8 @@ body{
 		width: 75px;
 		font-size: 12px;
 		font-weight: bold;
+	}
+	.hPane .current .r, .hPane .current .g, .hPane .current .b{
+		width: 60px;
 	}
 }

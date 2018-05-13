@@ -1,5 +1,5 @@
-var newGame,hard,easy,head,options,livesreplay,ease,color,colorDark;
-var header,palette,answer,life,started;
+var newGame,hard,easy,head,options,livesreplay,ease,color,colorDark,correct;
+var header,hText,palette,play,runKey,cardSize,hBackup,answer,life,started;
 
 function onResize(){
 	setPaletteSize();
@@ -9,8 +9,15 @@ function generateCol(darkAsWell){
 	var r=Math.floor(Math.random()*limit);
 	var g=Math.floor(Math.random()*limit);
 	var b=Math.floor(Math.random()*limit);
-	if(darkAsWell){colorDark="RGB("+(r-modify)+", "+(g-modify)+", "+(b-modify)+")"}
-		return "RGB("+r+", "+g+", "+b+")";
+	var space="\xa0\xa0\xa0";
+	if(darkAsWell===-1){
+		return [[r,g,b],"RGB("+r+", "+g+", "+b+")"];
+	}
+
+	if(darkAsWell===true){
+		colorDark="RGB("+(r-modify)+", "+(g-modify)+", "+(b-modify)+")"
+	}
+	return "RGB("+r+", "+g+", "+b+")";
 }
 function setColor(item,col,back){
 	if(back){document.querySelector(item).style.backgroundColor=col;}
@@ -81,18 +88,21 @@ function cardClick(){
 	if(this.style.backgroundColor != answer.toLowerCase()){
 		setLives(--life);
 		this.classList.add('fade_item');
+		this.style.borderRadius = '0px';
 		this.removeEventListener('click',cardClick);
 		if(life==0){
-			gameOver();
+			gameOver(this);
 		}
 	}
 	else{
-		gameOver();
+		gameOver(this);
 	}
 }
-function gameOver(){
+function gameOver(item){
 	for(var i=0;i<options.length;i++){
 		options[i].classList.add('fade_itemC');
+		if(life==0 && options[i]==item){options[i].style.borderRadius = '0px';}
+		else{options[i].style.borderRadius = (cardSize)+'px';}
 	}
 	color=answer;
 	if(life==0){color="#555";}
@@ -112,7 +122,7 @@ function gameOver(){
 			document.querySelector('.hPane .first').innerHTML = 'GAME OVER';
 			document.querySelector('.hPane .last').innerHTML = 'NO MORE LIVES';
 		}
-	}, 600);
+	}, 100);
 	setTimeout(function() {
 		replay.style.display= 'flex';
 		replay.style.opacity = '1';
@@ -123,11 +133,9 @@ function gameOver(){
 }
 function setPaletteSize(){
 	var gSize=window.innerHeight-header.offsetHeight-40;
-	var cardSize=Math.min(window.innerWidth,gSize);
+	cardSize=Math.min(window.innerWidth,gSize);
 	palette.style.height = cardSize+'px';
 	palette.style.width = cardSize+'px';
-	
-	//console.log(palette.offsetWidth+" x "+palette.offsetHeight);
 	for(var i=0;i<options.length;i++)
 	{
 		options[i].style.width = (cardSize*0.28)+'px';
@@ -135,20 +143,79 @@ function setPaletteSize(){
 		options[i].style.border = (cardSize*0.008)+'px solid #fff';
 		options[i].style.margin = (cardSize*0.015)+'px';
 		options[i].style.borderRadius = (cardSize*0.057)+'px';
-		console.log(cardSize+" = "+options[i].style.borderRadius);
 	}
 }
+function init(){
+	hBackup=head.style.fontSize;
+	first.style.fontSize = '60px';
+	first.style.fontWeight = 'bold';
+	last.style.fontSize = '40px';
+	head.style.fontSize = '0px';
+	header.style.height = window.innerHeight+'px';
+	header.classList.add('splash');
+	run=window.setInterval(function(){
+		var color=generateCol(-1)[0];
+		document.querySelector('.hPane .current .r').innerHTML=color[0];
+		document.querySelector('.hPane .current .g').innerHTML=color[1];
+		document.querySelector('.hPane .current .b').innerHTML=color[2];
+	}, 90);
+	setTimeout(function() {
+		document.querySelector('.hCenter').style.transition = '1.8s cubic-bezier(0.86, 0, 0.07, 1)'; 
+		document.querySelector('.hCenter').style.transform = 'translateY(-100px)';
 
+		setTimeout(function() {
+			head.style.transition = '0.3s ease'; 
+			first.style.transition = '0.3s ease';
+			last.style.transition = '0.3s ease';
+
+			head.style.fontSize = hBackup;
+			first.style.fontSize = '28px';
+			first.style.fontWeight = 'normal';
+			last.style.fontSize = '28px';
+		}, 800);
+		setTimeout(function() {
+			document.querySelector('.hPane .play img').classList.add('img_grow');
+			play.style.pointerEvents='all';
+			play.addEventListener('mouseover',function(){
+				document.querySelector('.hPane .play img').style.width = '45px';
+				document.querySelector('.hPane .play img').style.height = '45px';
+			});
+			play.addEventListener('mouseleave',function(){
+				document.querySelector('.hPane .play img').style.width = '60px';
+				document.querySelector('.hPane .play img').style.height = '60px';
+			});
+			play.addEventListener('click',function(){
+				play.style.opacity = '0';
+				setTimeout(function() {play.style.display='none';}, 300);
+				document.querySelector('.hCenter').style.transform = 'translateY(0px)';
+				header.style.transition = '1.8s cubic-bezier(0.86, 0, 0.07, 1)';
+				header.style.height='200px';
+				clearInterval(run);
+				answer = generateCol(-1);
+				document.querySelector('.hPane .current .r').innerHTML=answer[0][0];
+				document.querySelector('.hPane .current .g').innerHTML=answer[0][1];
+				document.querySelector('.hPane .current .b').innerHTML=answer[0][2];
+				answer=answer[1];
+				options[correct].style.backgroundColor = answer;
+				
+			});
+		}, 1500);
+	}, 1000);
+}
 function main(){
 	newGame=document.querySelector(".controls .newText");
 	hard=document.querySelector(".controls .hard");
 	easy=document.querySelector(".controls .easy");
 	header=document.querySelector('.hPane');
+	first=document.querySelector('.hPane .first');
+	last=document.querySelector('.hPane .last');
 	head=document.querySelector('.hPane .current');
 	palette=document.querySelector('.palette');
 	options=document.querySelectorAll(".palette .item");
 	lives=document.querySelector('.lives');
 	replay=document.querySelector('.replay');
+	play=document.querySelector('.hPane .play');
+
 	ease=easy;
 	life=3;
 	started=false;
@@ -167,9 +234,6 @@ function main(){
 	easy.style.background = color;
 	easy.style.color = '#fff';
 
-	answer = generateCol(false);
-	head.innerHTML=answer;
-
 	replay.addEventListener("mousedown",function(){
 		this.style.backgroundColor = "rgba(255, 255, 255, 0.5)";
 	});
@@ -181,7 +245,7 @@ function main(){
 		reload();
 	});
 
-	var correct=Math.round(Math.random()*5);
+	correct=Math.round(Math.random()*5);
 	for(var i=0;i<options.length;i++)
 	{
 		if(i!=correct){
@@ -197,5 +261,6 @@ function main(){
 			//options[correct].click();
 		});
 	}
+	init();
 }
 main();
