@@ -2,6 +2,7 @@ var newGame,hard,easy,head,options,livesreplay,ease,color,colorDark,correct;
 var header,hText,palette,play,runKey,cardSize,hBackup,answer,life,started;
 
 function onResize(){
+	document.body.style.height = window.innerHeight + "px";
 	setPaletteSize();
 }
 function generateCol(darkAsWell){
