@@ -82,7 +82,7 @@ body{
 	overflow: hidden;
 }
 .controls .contain{
-	overflow: unset;
+	overflow: visible;
 	width: 480px;	
 	height: 20px;
 	margin: auto;
