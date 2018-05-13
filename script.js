@@ -4,6 +4,7 @@ var easy=document.querySelector(".controls .easy");
 var head=document.querySelector('.hPane .current');
 var options=document.querySelectorAll(".palette .item");
 var lives=document.querySelector('.lives');
+var replay=document.querySelector('.replay');
 var ease=hard;
 var color="RGB(23, 119, 87)";
 var colorDark="RGB(13, 109, 77)";
@@ -58,7 +59,7 @@ function addMouseEvent(item){
 			if(this.getAttribute("class")=="easy"){setEasy()}
 				else if(this.getAttribute("class")=="hard"){setHard()}
 			}
-		else{reloadJS();}
+		else{reload();}
 	});
 }
 function setEasy(){
@@ -75,7 +76,7 @@ function setHard(){
 	life=2;
 	setLives(life);
 }
-function reloadJS()
+function reload()
 {
 	window.location.reload(false);
 }
@@ -128,9 +129,13 @@ function gameOver(){
 			document.querySelector('.hPane .last').innerHTML = 'NO MORE LIVES';
 		}
 	}, 600);
+	setTimeout(function() {
+		replay.style.display= 'flex';
+		replay.style.opacity = '1';
+	}, 1800);
 
 	document.querySelector('.hCenter').style.transition = '1.8s cubic-bezier(0.86, 0, 0.07, 1)'; 
-	document.querySelector('.hCenter').style.transform = 'translateY(-150px)';
+	document.querySelector('.hCenter').style.transform = 'translateY(-100px)';
 }
 
 color = generateCol(true);
@@ -146,13 +151,21 @@ setColor('.controls .contain .newGame',color,false);
 setColor('.controls .contain .easy',color,false);
 
 document.querySelectorAll('.lives')[0].style.color=color;
-// document.querySelectorAll('.lives')[1].style.color=color;
-// document.querySelectorAll('.lives')[2].style.color=color;
 
 hard.style.background = color;hard.style.color = '#fff';
 
 answer = generateCol(false);
 head.innerHTML=answer;
+
+replay.addEventListener("mousedown",function(){
+	this.style.backgroundColor = "rgba(255, 255, 255, 0.5)";
+});
+replay.addEventListener("mouseup",function(){
+	this.style.backgroundColor = "rgba(255, 255, 255, 0.2)";
+});
+replay.addEventListener("click",function(){
+	reload();
+});
 
 var correct=Math.round(Math.random()*5);
 for(var i=0;i<options.length;i++)
