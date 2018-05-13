@@ -5,10 +5,14 @@
 	margin:0;
 	padding:0;
 }
+html {
+  height: 100%;
+}
 body{
 	background-color: #121212;
 	font-family: 'Quicksand', sans-serif;
 	overflow: hidden;
+	min-height: 100%;
 }
 
 .splash{
