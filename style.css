@@ -5,8 +5,7 @@
 	margin:0;
 	padding:0;
 }
-html,body{
-	height: 100%;
+body{
 	background-color: #121212;
 	font-family: 'Quicksand', sans-serif;
 	overflow: hidden;
