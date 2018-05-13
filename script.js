@@ -133,7 +133,7 @@ function gameOver(item){
 	document.querySelector('.hCenter').style.transform = 'translateY(-100px)';
 }
 function setPaletteSize(){
-	var gSize=window.innerHeight-header.offsetHeight-40;
+	var gSize=window.innerHeight-250;
 	cardSize=Math.min(window.innerWidth,gSize);
 	palette.style.height = cardSize+'px';
 	palette.style.width = cardSize+'px';
