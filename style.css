@@ -149,7 +149,6 @@ body{
 }
 .palette{
 	max-width: 440px;
-	margin: auto;
 }
 .palette .item{
 	float: left;
