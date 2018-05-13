@@ -109,13 +109,11 @@ body{
 	align-items: center;
 }
 .palette{
-	width: 100%;
-	max-width: 400px;
+	max-width: 440px;
 	margin: auto;
 	margin-top: 20px;
 }
 .palette .item{
-	width: 28%;
 	float: left;
 	margin: 1.66667%;
 	border-radius: 25px;
@@ -125,11 +123,6 @@ body{
 	transform: rotate(90deg);
 	border-radius: 100px;
 	transition: 0.4s ease;
-}
-.palette .item:after {
-	content: "";
-	display: block;
-	padding-bottom: 100%;
 }
 .palette .fade_item{
 	opacity: 0;	

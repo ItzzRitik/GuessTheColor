@@ -122,13 +122,19 @@ function gameOver(){
 	document.querySelector('.hCenter').style.transform = 'translateY(-100px)';
 }
 function setPaletteSize(){
-	var gSize=window.innerHeight-header.offsetHeight-20;
-	palette.style.height = gSize;
-	palette.style.width = window.innerWidth;
-	console.log(window.innerWidth);
+	var gSize=window.innerHeight-header.offsetHeight-55;
+	var cardSize=Math.min(window.innerWidth,gSize);
+	palette.style.height = cardSize+'px';
+	palette.style.width = cardSize+'px';
+	
+	//console.log(palette.offsetWidth+" x "+palette.offsetHeight);
 	for(var i=0;i<options.length;i++)
 	{
-		options[i].style.border = (palette.offsetWidth/100)+'px solid #fff'
+		options[i].style.width = (cardSize*0.28)+'px';
+		options[i].style.height = (cardSize*0.28)+'px';
+		options[i].style.border = (cardSize*0.01)+'px solid #fff';
+		options[i].margin = (cardSize*0.016666)+'px';
+		console.log(options[i].margin);
 	}
 }
 
