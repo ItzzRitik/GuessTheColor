@@ -173,6 +173,6 @@ for(var i=0;i<options.length;i++)
 	onResize();
 
 	lives.addEventListener('click',function(){
-		options[correct].click();
+		//options[correct].click();
 	});
 }
