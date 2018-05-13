@@ -149,8 +149,8 @@ function main(){
 	options=document.querySelectorAll(".palette .item");
 	lives=document.querySelector('.lives');
 	replay=document.querySelector('.replay');
-	ease=hard;
-	life=2;
+	ease=easy;
+	life=3;
 	started=false;
 	color = generateCol(true);
 
@@ -161,11 +161,11 @@ function main(){
 
 	setColor('.hPane',color,true);
 	setColor('.controls .contain .newGame',color,false);
-	setColor('.controls .contain .easy',color,false);
+	setColor('.controls .contain .hard',color,false);
 	setColor('.lives',color,false);
 
-	hard.style.background = color;
-	hard.style.color = '#fff';
+	easy.style.background = color;
+	easy.style.color = '#fff';
 
 	answer = generateCol(false);
 	head.innerHTML=answer;
