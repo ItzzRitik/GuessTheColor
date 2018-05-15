@@ -197,7 +197,7 @@ function gameOver(item){
 			document.querySelector('.hPane .first').innerHTML = 'YOU WON';
 			document.querySelector('.hPane .last').innerHTML = 'CONGRATULATIONS';
 		}
-	}, 100);
+	}, 800);
 	setTimeout(function() {
 		replayImg.style.width = '60px';
 		replayImg.style.height = '60px';
