@@ -1,5 +1,5 @@
 var newGame,hard,easy,head,options,livesreplay,ease,color,correct,replayImg,replayEvent,playEvent;
-var header,hText,palette,play,rgbKey,paletteKey,cardSize,hBackup,answer,life;
+var header,hText,palette,play,rgbKey,paletteKey,cardSize,hBackup,answer,life,rgbWidth;
 
 function onResize(){
 	document.body.style.height = window.innerHeight + "px";
@@ -191,11 +191,17 @@ function gameOver(item){
 			document.querySelector("meta[name=theme-color]").setAttribute('content', '#555');
 			document.querySelector('.hPane .first').innerHTML = 'GAME OVER';
 			document.querySelector('.hPane .last').innerHTML = 'NO MORE LIVES';
+
 			hBackup=head.style.fontSize;
 			first.style.fontSize = '60px';
 			first.style.fontWeight = 'bold';
-			last.style.fontSize = '40px';
 			head.style.fontSize = '0px'; 
+			last.style.fontSize = '40px';
+
+			rgbWidth=document.querySelector('.hPane .current .r').style.width;
+			document.querySelector('.hPane .current .r').style.width = '0';
+			document.querySelector('.hPane .current .g').style.width = '0';
+			document.querySelector('.hPane .current .b').style.width = '0';
 		}
 		else{
 			document.querySelector("meta[name=theme-color]").setAttribute('content', answer[1]);
@@ -345,6 +351,10 @@ function main(){
 				first.style.fontSize = '28px';
 				first.style.fontWeight = 'normal';
 				last.style.fontSize = '28px';
+
+				document.querySelector('.hPane .current .r').style.width = rgbWidth;
+				document.querySelector('.hPane .current .g').style.width = rgbWidth;
+				document.querySelector('.hPane .current .b').style.width = rgbWidth;
 			}, 800);
 			setPaletteSize();
 			newPalette();
