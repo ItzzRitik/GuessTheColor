@@ -5,19 +5,18 @@ function onResize(){
 	document.body.style.height = window.innerHeight + "px";
 	setPaletteSize();
 }
-function generateCol(darkAsWell){
+function generateCol(){
 	var limit=255,modify=100;
+
 	var r=Math.min(Math.floor(Math.random() * limit + 1), limit);
 	var g=Math.min(Math.floor(Math.random() * limit + 1), limit);
 	var b=Math.min(Math.floor(Math.random() * limit + 1), limit);
-	var space="\xa0\xa0\xa0";
-	if(darkAsWell===-1){
-		return [[r,g,b],"RGB("+r+", "+g+", "+b+")","RGB("+(r-modify)+", "+(g-modify)+", "+(b-modify)+")"];
-	}
-	if(darkAsWell===true){
-		return["RGB("+r+", "+g+", "+b+")","RGB("+(r-modify)+", "+(g-modify)+", "+(b-modify)+")"];
-	}
-	return "RGB("+r+", "+g+", "+b+")";
+
+	var rd=(r>modify)?r-modify:0;
+	var gd=(g>modify)?g-modify:0;
+	var bd=(b>modify)?b-modify:0;
+	
+	return [[r,g,b],"RGB("+r+", "+g+", "+b+")","RGB("+rd+", "+gd+", "+bd+")"];
 }
 function setColor(item,col,back){
 	if(back){document.querySelector(item).style.backgroundColor=col;}
@@ -25,26 +24,26 @@ function setColor(item,col,back){
 }
 function addMouseEvent(item){
 	item.addEventListener("mouseover",function(){
-		this.style.background = color[0];
+		this.style.background = color[1];
 		this.style.color = '#fff';
 	});
 	item.addEventListener("mouseleave",function(){
 		this.style.background = '#fff';
-		this.style.color = color[0];
+		this.style.color = color[1];
 		if(ease==easy && this.getAttribute("class")!="newText"){
-			ease.style.background = color[0];
+			ease.style.background = color[1];
 			ease.style.color = '#fff';
 		}
 		else if(ease==hard && this.getAttribute("class")!="newText"){
-			ease.style.background = color[0];
+			ease.style.background = color[1];
 			ease.style.color = '#fff';
 		}
 	});
 	item.addEventListener("mousedown",function(){
-		this.style.background = color[1];
+		this.style.background = color[2];
 	});
 	item.addEventListener("mouseup",function(){
-		this.style.background = color[0];
+		this.style.background = color[1];
 	});
 	item.addEventListener("click",function(){
 		if(this.getAttribute("class")!="newText"){
@@ -63,14 +62,14 @@ function addMouseEvent(item){
 }
 function setEasy(){
 	ease=easy;
-	easy.style.background = color[1];hard.style.background = "#fff";
-	easy.style.color = '#fff';hard.style.color = color[1];
+	easy.style.background = color[2];hard.style.background = "#fff";
+	easy.style.color = '#fff';hard.style.color = color[2];
 	setLives(3);
 }
 function setHard(){
 	ease=hard;
-	hard.style.background = color[1];easy.style.background = "#fff";
-	hard.style.color = '#fff';easy.style.color = color[1];
+	hard.style.background = color[2];easy.style.background = "#fff";
+	hard.style.color = '#fff';easy.style.color = color[2];
 	setLives(2);
 }
 function setLives(num){
@@ -118,7 +117,7 @@ function setPaletteSize(){
 function newPalette(){
 	setPaletteSize();
 	correct=Math.round(Math.random()*5);
-	answer = generateCol(-1);
+	answer = generateCol();
 	options[correct].style.border = (cardSize*0.008)+'px solid '+answer[2];
 	document.querySelector('.hPane .current .r').innerHTML=answer[0][0];
 	document.querySelector('.hPane .current .g').innerHTML=answer[0][1];
@@ -127,9 +126,9 @@ function newPalette(){
 	for(var i=0;i<options.length;i++)
 	{
 		if(i!=correct){
-			var tempCol=generateCol(true);
-			options[i].style.backgroundColor = tempCol[0];
-			options[i].style.border = (cardSize*0.008)+'px solid '+tempCol[1];
+			var tempCol=generateCol();
+			options[i].style.backgroundColor = tempCol[1];
+			options[i].style.border = (cardSize*0.008)+'px solid '+tempCol[2];
 		}
 		else{
 			options[i].style.backgroundColor = answer;
@@ -144,15 +143,15 @@ function new_Game(timeOut){
 		options[i].style.pointerEvents='none';
 	}
 	rgbKey=window.setInterval(function(){
-		var tempColor=generateCol(-1)[0];
-		document.querySelector('.hPane .current .r').innerHTML=tempColor[0];
-		document.querySelector('.hPane .current .g').innerHTML=tempColor[1];
-		document.querySelector('.hPane .current .b').innerHTML=tempColor[2];
+		var tempCol=generateCol()[0];
+		document.querySelector('.hPane .current .r').innerHTML=tempCol[0];
+		document.querySelector('.hPane .current .g').innerHTML=tempCol[1];
+		document.querySelector('.hPane .current .b').innerHTML=tempCol[2];
 	}, 90);
 	paletteKey=window.setInterval(function(){
 		for(var i=0;i<options.length;i++)
 		{
-			options[i].style.backgroundColor = generateCol(false);
+			options[i].style.backgroundColor = generateCol()[1];
 		}
 	}, 90);
 	setTimeout(function() {
@@ -214,10 +213,10 @@ function init(){
 	header.style.height = window.innerHeight+'px';
 	header.classList.add('splash');
 	rgbKey=window.setInterval(function(){
-		var color=generateCol(-1)[0];
-		document.querySelector('.hPane .current .r').innerHTML=color[0];
-		document.querySelector('.hPane .current .g').innerHTML=color[1];
-		document.querySelector('.hPane .current .b').innerHTML=color[2];
+		var tempCol=generateCol()[0];
+		document.querySelector('.hPane .current .r').innerHTML=tempCol[0];
+		document.querySelector('.hPane .current .g').innerHTML=tempCol[1];
+		document.querySelector('.hPane .current .b').innerHTML=tempCol[2];
 	}, 80);
 	setTimeout(function() {
 		document.querySelector('.hCenter').style.transition = '1.8s cubic-bezier(0.86, 0, 0.07, 1)'; 
@@ -280,20 +279,21 @@ function main(){
 
 	ease=easy;
 	setLives(3);
-	color = generateCol(true);
+	color = generateCol();
 
 	addMouseEvent(newGame);
 	addMouseEvent(hard);
 	addMouseEvent(easy);
 	setLives(life);
 
-    document.querySelector("meta[name=theme-color]").setAttribute("content", color[0]);
-	setColor('.hPane',color[0],true);
-	setColor('.controls .contain .newGame',color[0],false);
-	setColor('.controls .contain .hard',color[0],false);
-	setColor('.lives',color[0],false);
+	console.log(color[2]);
+    document.querySelector("meta[name=theme-color]").setAttribute('content', '#ffffff');
+	setColor('.hPane',color[1],true);
+	setColor('.controls .contain .newGame',color[1],false);
+	setColor('.controls .contain .hard',color[1],false);
+	setColor('.lives',color[1],false);
 
-	easy.style.background = color[0];
+	easy.style.background = color[1];
 	easy.style.color = '#fff';
 
 	init();
@@ -311,7 +311,7 @@ function main(){
 		hard.style.pointerEvents='all';
 
 		setTimeout(function() {
-			setColor('.hPane',color[0],true);
+			setColor('.hPane',color[1],true);
 			document.querySelector('.controls').style.height = '20px';
 			document.querySelector('.hCenter').style.transform = 'translateY(0px)';
 			header.style.transition = '1.8s cubic-bezier(0.86, 0, 0.07, 1)';
