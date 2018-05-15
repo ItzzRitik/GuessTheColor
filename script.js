@@ -125,8 +125,21 @@ function gameOver(item){
 		}
 	}, 100);
 	setTimeout(function() {
-		replay.style.display= 'flex';
-		replay.style.opacity = '1';
+		document.querySelector('.replay img').classList.add('img_grow');
+		replay.style.pointerEvents='all';
+		replay.addEventListener('mouseover',function(){
+			document.querySelector('.replay img').style.width = '45px';
+			document.querySelector('.replay img').style.height = '45px';
+		});
+		replay.addEventListener('mouseleave',function(){
+			document.querySelector('.replay img').style.width = '60px';
+			document.querySelector('.replay img').style.height = '60px';
+		});
+		replay.addEventListener('click',function(){
+			replay.style.opacity = '0';
+			setTimeout(function() {replay.style.display='none';}, 300);
+				reload();
+			});
 	}, 1800);
 
 	document.querySelector('.hCenter').style.transition = '1.8s cubic-bezier(0.86, 0, 0.07, 1)'; 
@@ -234,16 +247,6 @@ function main(){
 	easy.style.background = color;
 	easy.style.color = '#fff';
 
-	replay.addEventListener("mousedown",function(){
-		this.style.backgroundColor = "rgba(255, 255, 255, 0.5)";
-	});
-
-	replay.addEventListener("mouseup",function(){
-		this.style.backgroundColor = "rgba(255, 255, 255, 0.2)";
-	});
-	replay.addEventListener("click",function(){
-		reload();
-	});
 
 	correct=Math.round(Math.random()*5);
 	for(var i=0;i<options.length;i++)
