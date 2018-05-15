@@ -191,7 +191,7 @@ function gameOver(item){
 		first.style.fontWeight = 'bold';
 		head.style.fontSize = '0px'; 
 		last.style.fontSize = '40px';
-		
+
 		rgbWidth=document.querySelector('.hPane .current .r').style.width;
 		document.querySelector('.hPane .current .r').style.width = '0';
 		document.querySelector('.hPane .current .g').style.width = '0';
@@ -205,7 +205,7 @@ function gameOver(item){
 		else{
 			document.querySelector("meta[name=theme-color]").setAttribute('content', answer[1]);
 			document.querySelector('.hPane .first').innerHTML = 'YOU WON';
-			document.querySelector('.hPane .last').innerHTML = 'CONGRATULATIONS';
+			document.querySelector('.hPane .last').innerHTML = 'WELL PLAYED';
 		}
 	}, 800);
 	setTimeout(function() {
