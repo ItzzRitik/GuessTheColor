@@ -62,7 +62,6 @@ body{
 	justify-content: center;
 	align-items: center;
 	transition: 0.2s ease;
-	cursor: pointer;
 }
 .hPane .play:hover{
 	border: 2px solid rgba(255,255,255,255);
@@ -101,7 +100,6 @@ body{
 .controls .newGame{
 	width: 33%;
 	margin-left: -20px;
-	cursor: pointer;
 	float:left;
 	pointer-events: none;
 }
@@ -112,7 +110,6 @@ body{
 	line-height: 20px;
 	font-size: 14px;
 	font-weight: bold;
-	cursor: pointer;
 	user-select: none;
 	transition: 0.3s ease;
 }
@@ -142,12 +139,10 @@ body{
 	width: 50px;
 	height: 20px;
 	line-height: 20px;
-	cursor: pointer;
 	font-size: 14px;
 	font-weight: bold;
 	text-align: center;
 	float:right;
-	cursor: pointer;
 	user-select: none;
 	transition: 0.3s ease;
 }
@@ -165,7 +160,6 @@ body{
 }
 .palette .item{
 	float: left;
-	cursor: pointer;
 	transition: 0.15s ease;
 }
 .palette .item:hover{
@@ -190,7 +184,6 @@ body{
 	width: 75px;
 	height: 75px;
 	border-radius: 75px;
-	cursor: pointer;
 	z-index: 101;
 	top: 60%;
 	left: 50%;
