@@ -6,7 +6,7 @@ function onResize(){
 	setPaletteSize();
 }
 function generateCol(){
-	var limit=255,modify=100;
+	var limit=255,modify=70;
 
 	var r=Math.min(Math.floor(Math.random() * limit + 1), limit);
 	var g=Math.min(Math.floor(Math.random() * limit + 1), limit);
@@ -83,11 +83,11 @@ function setLives(num){
 function cardClick(){
 	easy.style.pointerEvents='none';
 	hard.style.pointerEvents='none';
-	if(this.style.backgroundColor != answer.toLowerCase()){
+	if(this.style.backgroundColor != answer[1].toLowerCase()){
 		setLives(--life);
 		this.classList.add('fade_item');
 		this.style.borderRadius = '0px';
-		this.removeEventListener('click',cardClick);
+		this.style.pointerEvents = "none";
 		if(life==0){
 			gameOver(this);
 		}
@@ -122,7 +122,6 @@ function newPalette(){
 	document.querySelector('.hPane .current .r').innerHTML=answer[0][0];
 	document.querySelector('.hPane .current .g').innerHTML=answer[0][1];
 	document.querySelector('.hPane .current .b').innerHTML=answer[0][2];
-	answer=answer[1];
 	for(var i=0;i<options.length;i++)
 	{
 		if(i!=correct){
@@ -131,7 +130,7 @@ function newPalette(){
 			options[i].style.border = (cardSize*0.008)+'px solid '+tempCol[2];
 		}
 		else{
-			options[i].style.backgroundColor = answer;
+			options[i].style.backgroundColor = answer[1];
 		}
 		options[i].addEventListener("click",cardClick);
 	}
@@ -172,8 +171,14 @@ function gameOver(item){
 		if(life==0 && options[i]==item){options[i].style.borderRadius = '0px';}
 		else{options[i].style.borderRadius = (cardSize)+'px';}
 	}
-	if(life==0){setColor('.hPane',"#555",true);}
-	else{setColor('.hPane',answer,true);}
+	if(life==0){
+		document.querySelector("meta[name=theme-color]").setAttribute('content', '#555');
+		setColor('.hPane',"#555",true);
+	}
+	else{
+		document.querySelector("meta[name=theme-color]").setAttribute('content', answer[2]);
+		setColor('.hPane',answer[1],true);
+	}
 	document.querySelector('.controls').style.height = '0';
 	document.querySelector('.controls').style.transition = '1.2s cubic-bezier(0.86, 0, 0.07, 1)';
 
@@ -287,7 +292,7 @@ function main(){
 	setLives(life);
 
 	console.log(color[2]);
-    document.querySelector("meta[name=theme-color]").setAttribute('content', color[2]);
+	document.querySelector("meta[name=theme-color]").setAttribute('content', color[2]);
 	setColor('.hPane',color[1],true);
 	setColor('.controls .contain .newGame',color[1],false);
 	setColor('.controls .contain .hard',color[1],false);
@@ -311,6 +316,7 @@ function main(){
 		hard.style.pointerEvents='all';
 
 		setTimeout(function() {
+			document.querySelector("meta[name=theme-color]").setAttribute('content', color[2]);
 			setColor('.hPane',color[1],true);
 			document.querySelector('.controls').style.height = '20px';
 			document.querySelector('.hCenter').style.transform = 'translateY(0px)';
