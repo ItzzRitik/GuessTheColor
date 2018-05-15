@@ -287,6 +287,7 @@ function main(){
 	addMouseEvent(easy);
 	setLives(life);
 
+    document.querySelector("meta[name=theme-color]").setAttribute("content", color[0]);
 	setColor('.hPane',color[0],true);
 	setColor('.controls .contain .newGame',color[0],false);
 	setColor('.controls .contain .hard',color[0],false);
