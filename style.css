@@ -207,7 +207,7 @@ body{
 	-webkit-user-drag: none;
 	-webkit-user-select: none;
 	-ms-user-select: none;
-	animation:spin 4s linear infinite;
+	animation:spin 3s linear infinite;
 }
 @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
 

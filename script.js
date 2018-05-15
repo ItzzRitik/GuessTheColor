@@ -178,7 +178,7 @@ function gameOver(item){
 		setColor('.hPane',answer[1],true);
 	}
 	document.querySelector('.controls').style.height = '0';
-	document.querySelector('.controls').style.transition = '1.2s cubic-bezier(0.86, 0, 0.07, 1)';
+	document.querySelector('.controls').style.transition = '1.5s cubic-bezier(0.86, 0, 0.07, 1)';
 
 	header.style.transition = '1.8s cubic-bezier(0.86, 0, 0.07, 1)';
 	header.style.paddingTop = '0px';
@@ -191,6 +191,11 @@ function gameOver(item){
 			document.querySelector("meta[name=theme-color]").setAttribute('content', '#555');
 			document.querySelector('.hPane .first').innerHTML = 'GAME OVER';
 			document.querySelector('.hPane .last').innerHTML = 'NO MORE LIVES';
+			hBackup=head.style.fontSize;
+			first.style.fontSize = '60px';
+			first.style.fontWeight = 'bold';
+			last.style.fontSize = '40px';
+			head.style.fontSize = '0px'; 
 		}
 		else{
 			document.querySelector("meta[name=theme-color]").setAttribute('content', answer[1]);
@@ -313,7 +318,7 @@ function main(){
 		replay.style.pointerEvents='none';
 		newGame.style.pointerEvents='none';
 		setLives((ease==easy)?3:2);
-		new_Game(3500);
+		new_Game(3100);
 		easy.style.pointerEvents='all';
 		hard.style.pointerEvents='all';
 
@@ -327,10 +332,19 @@ function main(){
 			setTimeout(function() {
 				document.querySelector('.hPane .first').innerHTML = 'THE GREAT';
 				document.querySelector('.hPane .last').innerHTML = 'GUESSING GAME';
+
+				head.style.transition = '0.3s ease'; 
+				first.style.transition = '0.3s ease';
+				last.style.transition = '0.3s ease';
+
+				head.style.fontSize = hBackup;
+				first.style.fontSize = '28px';
+				first.style.fontWeight = 'normal';
+				last.style.fontSize = '28px';
 			}, 800);
 			setPaletteSize();
 			newPalette();
-		}, 1000);
+		}, 500);
 	});
 	replay.addEventListener('mouseover',function(){
 		if(replayEvent===1){
