@@ -197,6 +197,7 @@ function gameOver(item){
 		replayImg.style.height = '60px';
 		replayImg.style.transition = '0.3s ease'; 
 		replay.style.pointerEvents='all';
+		replay.style.opacity = '1';
 	}, 1800);
 
 	document.querySelector('.hCenter').style.transition = '1.8s cubic-bezier(0.86, 0, 0.07, 1)'; 
@@ -300,6 +301,7 @@ function main(){
 		replayEvent=0;
 		replayImg.style.width = '0';
 		replayImg.style.height = '0';
+		replay.style.opacity = '0';
 		replay.style.pointerEvents='none';
 		newGame.style.pointerEvents='none';
 		setLives((ease==easy)?3:2);
