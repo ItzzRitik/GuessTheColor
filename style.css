@@ -198,7 +198,6 @@ body{
 .replay img{
 	width: 0px;
 	height: 0px;
-	padding-left: 0px;
 	user-drag: none; 
 	user-select: none;
 	-moz-user-select: none;
@@ -207,12 +206,6 @@ body{
 	-ms-user-select: none;
 	animation:spin 4s linear infinite;
 }
-.replay .img_grow{
-	width: 60px;
-	height: 60px;
-	transition: 0.3s ease;
-}
-
 @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
 
 @media only screen and (max-width: 600px) {

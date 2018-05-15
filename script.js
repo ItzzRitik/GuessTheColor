@@ -1,5 +1,5 @@
-var newGame,hard,easy,head,options,livesreplay,ease,color,correct;
-var header,hText,palette,play,rgbKey,paletteKey,cardSize,hBackup,answer,life,started;
+var newGame,hard,easy,head,options,livesreplay,ease,color,correct,replayImg,replayEvent,playEvent;
+var header,hText,palette,play,rgbKey,paletteKey,cardSize,hBackup,answer,life;
 
 function onResize(){
 	document.body.style.height = window.innerHeight + "px";
@@ -48,39 +48,42 @@ function addMouseEvent(item){
 	});
 	item.addEventListener("click",function(){
 		if(this.getAttribute("class")!="newText"){
-			if(this.getAttribute("class")=="easy"){setEasy();}
-			else if(this.getAttribute("class")=="hard"){setHard();}
+			if(this.getAttribute("class")=="easy"){
+				setEasy();
+			}
+			else if(this.getAttribute("class")=="hard"){
+				setHard();
+			}
 		}
-		else{new_Game();}
+		else{
+			newGame.style.pointerEvents='none';
+			new_Game(1500);
+		}
 	});
 }
 function setEasy(){
 	ease=easy;
 	easy.style.background = color[1];hard.style.background = "#fff";
 	easy.style.color = '#fff';hard.style.color = color[1];
-	life=3;
-	setLives(life);
+	setLives(3);
 }
 function setHard(){
 	ease=hard;
 	hard.style.background = color[1];easy.style.background = "#fff";
 	hard.style.color = '#fff';easy.style.color = color[1];
-	life=2;
-	setLives(life);
+	setLives(2);
 }
 function setLives(num){
+	life=num;
 	lives.innerHTML="";
-	for(var i=0;i<num;i++)
+	for(var i=0;i<life;i++)
 	{
 		lives.innerHTML+="<i class='fas fa-heart'></i> ";
 	}
 }
 function cardClick(){
-	if(!started){
-		started=true;
-		easy.style.pointerEvents='none';
-		hard.style.pointerEvents='none';
-	}
+	easy.style.pointerEvents='none';
+	hard.style.pointerEvents='none';
 	if(this.style.backgroundColor != answer.toLowerCase()){
 		setLives(--life);
 		this.classList.add('fade_item');
@@ -95,6 +98,10 @@ function cardClick(){
 	}
 }
 function setPaletteSize(){
+	for(var i=0;i<options.length;i++){
+		options[i].classList.remove('fade_itemC');
+		options[i].classList.remove('fade_item');
+	}
 	var gSize=window.innerHeight-250;
 	cardSize=Math.min(window.innerWidth,gSize);
 	palette.style.height = cardSize+'px';
@@ -109,6 +116,7 @@ function setPaletteSize(){
 	}
 }
 function newPalette(){
+	setPaletteSize();
 	correct=Math.round(Math.random()*5);
 	answer = generateCol(-1);
 	options[correct].style.border = (cardSize*0.008)+'px solid '+answer[2];
@@ -128,15 +136,18 @@ function newPalette(){
 		}
 		options[i].addEventListener("click",cardClick);
 	}
-	newGame.style.pointerEvents='all';
 }
-function new_Game(){
-	newGame.style.pointerEvents='none';
+function new_Game(timeOut){
+	setLives((ease==easy)?3:2);
+	newPalette();
+	for(var i=0;i<options.length;i++){
+		options[i].style.pointerEvents='none';
+	}
 	rgbKey=window.setInterval(function(){
-		var color=generateCol(-1)[0];
-		document.querySelector('.hPane .current .r').innerHTML=color[0];
-		document.querySelector('.hPane .current .g').innerHTML=color[1];
-		document.querySelector('.hPane .current .b').innerHTML=color[2];
+		var tempColor=generateCol(-1)[0];
+		document.querySelector('.hPane .current .r').innerHTML=tempColor[0];
+		document.querySelector('.hPane .current .g').innerHTML=tempColor[1];
+		document.querySelector('.hPane .current .b').innerHTML=tempColor[2];
 	}, 90);
 	paletteKey=window.setInterval(function(){
 		for(var i=0;i<options.length;i++)
@@ -148,7 +159,13 @@ function new_Game(){
 		clearInterval(rgbKey);
 		clearInterval(paletteKey);
 		newPalette();
-	}, 1500);
+		for(var i=0;i<options.length;i++){
+			options[i].style.pointerEvents='all';
+		}
+		newGame.style.pointerEvents='all';
+		easy.style.pointerEvents='all';
+		hard.style.pointerEvents='all';
+	}, timeOut);
 }
 function gameOver(item){
 	for(var i=0;i<options.length;i++){
@@ -156,15 +173,15 @@ function gameOver(item){
 		if(life==0 && options[i]==item){options[i].style.borderRadius = '0px';}
 		else{options[i].style.borderRadius = (cardSize)+'px';}
 	}
-	color=answer;
-	if(life==0){color="#555";}
-	setColor('.hPane',color,true);
+	if(life==0){setColor('.hPane',"#555",true);}
+	else{setColor('.hPane',answer,true);}
 	document.querySelector('.controls').style.height = '0';
 	document.querySelector('.controls').style.transition = '1.2s cubic-bezier(0.86, 0, 0.07, 1)';
 
 	header.style.transition = '1.8s cubic-bezier(0.86, 0, 0.07, 1)';
 	header.style.paddingTop = '0px';
 	header.style.height = window.innerHeight+"px";
+	replayEvent=1;
 
 	setTimeout(function() {
 		document.querySelector('.hPane .first').innerHTML = 'YOU WON';
@@ -176,38 +193,17 @@ function gameOver(item){
 		}
 	}, 100);
 	setTimeout(function() {
-		document.querySelector('.replay img').classList.add('img_grow');
+		replayImg.style.width = '60px';
+		replayImg.style.height = '60px';
+		replayImg.style.transition = '0.3s ease'; 
 		replay.style.pointerEvents='all';
-		replay.addEventListener('mouseover',function(){
-			document.querySelector('.replay img').style.width = '45px';
-			document.querySelector('.replay img').style.height = '45px';
-		});
-		replay.addEventListener('mouseleave',function(){
-			document.querySelector('.replay img').style.width = '60px';
-			document.querySelector('.replay img').style.height = '60px';
-		});
-		replay.addEventListener('click',function(){
-			replay.style.opacity = '0';
-			setTimeout(function() {replay.style.display='none';}, 300);
-
-			for(var i=0;i<options.length;i++){
-				options[i].classList.remove('fade_itemC');
-				options[i].classList.add('fade_item');
-			}
-			setPaletteSize();
-			document.querySelector('.controls').style.height = '20px';
-			document.querySelector('.hCenter').style.transform = 'translateY(0px)';
-			header.style.transition = '1.8s cubic-bezier(0.86, 0, 0.07, 1)';
-			header.style.height='200px';
-			clearInterval(rgbKey);
-			newPalette();
-		});
 	}, 1800);
 
 	document.querySelector('.hCenter').style.transition = '1.8s cubic-bezier(0.86, 0, 0.07, 1)'; 
-	document.querySelector('.hCenter').style.transform = 'translateY(-100px)';
+	document.querySelector('.hCenter').style.transform = 'translateY(-110px)';
 }
 function init(){
+	playEvent=1;
 	document.querySelector('.hCenter').style.transform = 'translateY(-20px)';
 	hBackup=head.style.fontSize;
 	first.style.fontSize = '60px';
@@ -224,7 +220,7 @@ function init(){
 	}, 80);
 	setTimeout(function() {
 		document.querySelector('.hCenter').style.transition = '1.8s cubic-bezier(0.86, 0, 0.07, 1)'; 
-		document.querySelector('.hCenter').style.transform = 'translateY(-130px)';
+		document.querySelector('.hCenter').style.transform = 'translateY(-110px)';
 		setTimeout(function() {
 			head.style.transition = '0.3s ease'; 
 			first.style.transition = '0.3s ease';
@@ -239,21 +235,29 @@ function init(){
 			document.querySelector('.hPane .play img').classList.add('img_grow');
 			play.style.pointerEvents='all';
 			play.addEventListener('mouseover',function(){
-				document.querySelector('.hPane .play img').style.width = '45px';
-				document.querySelector('.hPane .play img').style.height = '45px';
+				if(playEvent==1){
+					document.querySelector('.hPane .play img').style.width = '45px';
+					document.querySelector('.hPane .play img').style.height = '45px';
+				}
 			});
 			play.addEventListener('mouseleave',function(){
-				document.querySelector('.hPane .play img').style.width = '60px';
-				document.querySelector('.hPane .play img').style.height = '60px';
+				if(playEvent==1){
+					document.querySelector('.hPane .play img').style.width = '60px';
+					document.querySelector('.hPane .play img').style.height = '60px';
+				}
 			});
 			play.addEventListener('click',function(){
+				playEvent=0;
 				play.style.opacity = '0';
+				document.querySelector('.hPane .play img').style.width = '0';
+				document.querySelector('.hPane .play img').style.height = '0';
 				setTimeout(function() {play.style.display='none';}, 300);
 				document.querySelector('.hCenter').style.transform = 'translateY(0px)';
 				header.style.transition = '1.8s cubic-bezier(0.86, 0, 0.07, 1)';
 				header.style.height='200px';
 				clearInterval(rgbKey);
 				newPalette();
+				newGame.style.pointerEvents='all';
 			});
 		}, 1500);
 	}, 1000);
@@ -270,11 +274,11 @@ function main(){
 	options=document.querySelectorAll(".palette .item");
 	lives=document.querySelector('.lives');
 	replay=document.querySelector('.replay');
+	replayImg=document.querySelector('.replay img');
 	play=document.querySelector('.hPane .play');
 
 	ease=easy;
-	life=3;
-	started=false;
+	setLives(3);
 	color = generateCol(true);
 
 	addMouseEvent(newGame);
@@ -292,5 +296,42 @@ function main(){
 
 	init();
 	onResize();
+	replay.addEventListener('click',function(){
+		replayEvent=0;
+		replayImg.style.width = '0';
+		replayImg.style.height = '0';
+		replay.style.pointerEvents='none';
+		newGame.style.pointerEvents='none';
+		setLives((ease==easy)?3:2);
+		new_Game(3500);
+		easy.style.pointerEvents='all';
+		hard.style.pointerEvents='all';
+
+		setTimeout(function() {
+			setColor('.hPane',color[0],true);
+			document.querySelector('.controls').style.height = '20px';
+			document.querySelector('.hCenter').style.transform = 'translateY(0px)';
+			header.style.transition = '1.8s cubic-bezier(0.86, 0, 0.07, 1)';
+			header.style.height='200px';
+			setTimeout(function() {
+				document.querySelector('.hPane .first').innerHTML = 'THE GREAT';
+				document.querySelector('.hPane .last').innerHTML = 'GUESSING GAME';
+			}, 800);
+			setPaletteSize();
+			newPalette();
+		}, 1000);
+	});
+	replay.addEventListener('mouseover',function(){
+		if(replayEvent===1){
+			replayImg.style.width = '45px';
+			replayImg.style.height = '45px';
+		}
+	});
+	replay.addEventListener('mouseleave',function(){
+		if(replayEvent===1){
+			replayImg.style.width = '60px';
+			replayImg.style.height = '60px';
+		}
+	});
 }
 main();
