@@ -270,6 +270,9 @@ function init(){
 				clearInterval(rgbKey);
 				newPalette();
 				newGame.style.pointerEvents='all';
+				setTimeout(function() {
+					document.querySelector("meta[name=theme-color]").setAttribute('content', color[2]);
+				}, 800);
 			});
 		}, 1500);
 	}, 1000);
@@ -299,7 +302,7 @@ function main(){
 	setLives(life);
 
 	console.log(color[2]);
-	document.querySelector("meta[name=theme-color]").setAttribute('content', color[2]);
+	document.querySelector("meta[name=theme-color]").setAttribute('content', color[1]);
 	setColor('.hPane',color[1],true);
 	setColor('.controls .contain .newGame',color[1],false);
 	setColor('.controls .contain .hard',color[1],false);
@@ -323,13 +326,14 @@ function main(){
 		hard.style.pointerEvents='all';
 
 		setTimeout(function() {
-			document.querySelector("meta[name=theme-color]").setAttribute('content', color[1]);
 			setColor('.hPane',color[1],true);
 			document.querySelector('.controls').style.height = '20px';
 			document.querySelector('.hCenter').style.transform = 'translateY(0px)';
 			header.style.transition = '1.8s cubic-bezier(0.86, 0, 0.07, 1)';
 			header.style.height='200px';
 			setTimeout(function() {
+				document.querySelector("meta[name=theme-color]").setAttribute('content', color[2]);
+
 				document.querySelector('.hPane .first').innerHTML = 'THE GREAT';
 				document.querySelector('.hPane .last').innerHTML = 'GUESSING GAME';
 
