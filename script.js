@@ -176,7 +176,7 @@ function gameOver(item){
 		setColor('.hPane',"#555",true);
 	}
 	else{
-		document.querySelector("meta[name=theme-color]").setAttribute('content', answer[2]);
+		document.querySelector("meta[name=theme-color]").setAttribute('content', answer[1]);
 		setColor('.hPane',answer[1],true);
 	}
 	document.querySelector('.controls').style.height = '0';
