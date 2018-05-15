@@ -172,11 +172,9 @@ function gameOver(item){
 		else{options[i].style.borderRadius = (cardSize)+'px';}
 	}
 	if(life==0){
-		document.querySelector("meta[name=theme-color]").setAttribute('content', '#555');
 		setColor('.hPane',"#555",true);
 	}
 	else{
-		document.querySelector("meta[name=theme-color]").setAttribute('content', answer[1]);
 		setColor('.hPane',answer[1],true);
 	}
 	document.querySelector('.controls').style.height = '0';
@@ -188,12 +186,16 @@ function gameOver(item){
 	replayEvent=1;
 
 	setTimeout(function() {
-		document.querySelector('.hPane .first').innerHTML = 'YOU WON';
-		document.querySelector('.hPane .last').innerHTML = 'CONGRATULATIONS';
-		if(life==0)
-		{
+		
+		if(life==0){
+			document.querySelector("meta[name=theme-color]").setAttribute('content', '#555');
 			document.querySelector('.hPane .first').innerHTML = 'GAME OVER';
 			document.querySelector('.hPane .last').innerHTML = 'NO MORE LIVES';
+		}
+		else{
+			document.querySelector("meta[name=theme-color]").setAttribute('content', answer[1]);
+			document.querySelector('.hPane .first').innerHTML = 'YOU WON';
+			document.querySelector('.hPane .last').innerHTML = 'CONGRATULATIONS';
 		}
 	}, 100);
 	setTimeout(function() {
