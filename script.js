@@ -102,7 +102,7 @@ function setPaletteSize(){
 		options[i].classList.remove('fade_itemC');
 		options[i].classList.remove('fade_item');
 	}
-	var gSize=window.innerHeight-250;
+	var gSize=window.innerHeight-260;
 	cardSize=Math.min(window.innerWidth,gSize);
 	palette.style.height = cardSize+'px';
 	palette.style.width = cardSize+'px';
