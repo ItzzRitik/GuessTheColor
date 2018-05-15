@@ -208,7 +208,7 @@ function gameOver(item){
 	document.querySelector('.hCenter').style.transform = 'translateY(-100px)';
 }
 function init(){
-	document.querySelector('.hCenter').style.transform = 'translateY(-10px)';
+	document.querySelector('.hCenter').style.transform = 'translateY(-20px)';
 	hBackup=head.style.fontSize;
 	first.style.fontSize = '60px';
 	first.style.fontWeight = 'bold';
@@ -224,7 +224,7 @@ function init(){
 	}, 80);
 	setTimeout(function() {
 		document.querySelector('.hCenter').style.transition = '1.8s cubic-bezier(0.86, 0, 0.07, 1)'; 
-		document.querySelector('.hCenter').style.transform = 'translateY(-100px)';
+		document.querySelector('.hCenter').style.transform = 'translateY(-130px)';
 		setTimeout(function() {
 			head.style.transition = '0.3s ease'; 
 			first.style.transition = '0.3s ease';
