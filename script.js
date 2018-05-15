@@ -318,7 +318,7 @@ function main(){
 		hard.style.pointerEvents='all';
 
 		setTimeout(function() {
-			document.querySelector("meta[name=theme-color]").setAttribute('content', color[2]);
+			document.querySelector("meta[name=theme-color]").setAttribute('content', color[1]);
 			setColor('.hPane',color[1],true);
 			document.querySelector('.controls').style.height = '20px';
 			document.querySelector('.hCenter').style.transform = 'translateY(0px)';
