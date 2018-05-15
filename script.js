@@ -186,22 +186,21 @@ function gameOver(item){
 	replayEvent=1;
 
 	setTimeout(function() {
+		hBackup=head.style.fontSize;
+		first.style.fontSize = '60px';
+		first.style.fontWeight = 'bold';
+		head.style.fontSize = '0px'; 
+		last.style.fontSize = '40px';
 		
+		rgbWidth=document.querySelector('.hPane .current .r').style.width;
+		document.querySelector('.hPane .current .r').style.width = '0';
+		document.querySelector('.hPane .current .g').style.width = '0';
+		document.querySelector('.hPane .current .b').style.width = '0';
+
 		if(life==0){
 			document.querySelector("meta[name=theme-color]").setAttribute('content', '#555');
 			document.querySelector('.hPane .first').innerHTML = 'GAME OVER';
 			document.querySelector('.hPane .last').innerHTML = 'NO MORE LIVES';
-
-			hBackup=head.style.fontSize;
-			first.style.fontSize = '60px';
-			first.style.fontWeight = 'bold';
-			head.style.fontSize = '0px'; 
-			last.style.fontSize = '40px';
-
-			rgbWidth=document.querySelector('.hPane .current .r').style.width;
-			document.querySelector('.hPane .current .r').style.width = '0';
-			document.querySelector('.hPane .current .g').style.width = '0';
-			document.querySelector('.hPane .current .b').style.width = '0';
 		}
 		else{
 			document.querySelector("meta[name=theme-color]").setAttribute('content', answer[1]);
@@ -278,6 +277,15 @@ function init(){
 				newGame.style.pointerEvents='all';
 				setTimeout(function() {
 					document.querySelector("meta[name=theme-color]").setAttribute('content', color[2]);
+
+					head.style.fontSize = hBackup;
+					first.style.fontSize = '28px';
+					first.style.fontWeight = 'normal';
+					last.style.fontSize = '28px';
+
+					document.querySelector('.hPane .current .r').style.width = rgbWidth;
+					document.querySelector('.hPane .current .g').style.width = rgbWidth;
+					document.querySelector('.hPane .current .b').style.width = rgbWidth;
 				}, 800);
 			});
 		}, 1500);
@@ -342,10 +350,6 @@ function main(){
 
 				document.querySelector('.hPane .first').innerHTML = 'THE GREAT';
 				document.querySelector('.hPane .last').innerHTML = 'GUESSING GAME';
-
-				head.style.transition = '0.3s ease'; 
-				first.style.transition = '0.3s ease';
-				last.style.transition = '0.3s ease';
 
 				head.style.fontSize = hBackup;
 				first.style.fontSize = '28px';
