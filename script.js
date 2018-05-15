@@ -1,22 +1,21 @@
-var newGame,hard,easy,head,options,livesreplay,ease,color,colorDark,correct;
-var header,hText,palette,play,runKey,cardSize,hBackup,answer,life,started;
+var newGame,hard,easy,head,options,livesreplay,ease,color,correct;
+var header,hText,palette,play,rgbKey,paletteKey,cardSize,hBackup,answer,life,started;
 
 function onResize(){
 	document.body.style.height = window.innerHeight + "px";
 	setPaletteSize();
 }
 function generateCol(darkAsWell){
-	var limit=255,modify=70;;
+	var limit=255,modify=100;
 	var r=Math.floor(Math.random()*limit);
 	var g=Math.floor(Math.random()*limit);
 	var b=Math.floor(Math.random()*limit);
 	var space="\xa0\xa0\xa0";
 	if(darkAsWell===-1){
-		return [[r,g,b],"RGB("+r+", "+g+", "+b+")"];
+		return [[r,g,b],"RGB("+r+", "+g+", "+b+")","RGB("+(r-modify)+", "+(g-modify)+", "+(b-modify)+")"];
 	}
-
 	if(darkAsWell===true){
-		colorDark="RGB("+(r-modify)+", "+(g-modify)+", "+(b-modify)+")"
+		return["RGB("+r+", "+g+", "+b+")","RGB("+(r-modify)+", "+(g-modify)+", "+(b-modify)+")"];
 	}
 	return "RGB("+r+", "+g+", "+b+")";
 }
@@ -26,52 +25,48 @@ function setColor(item,col,back){
 }
 function addMouseEvent(item){
 	item.addEventListener("mouseover",function(){
-		this.style.background = color;
+		this.style.background = color[0];
 		this.style.color = '#fff';
 	});
 	item.addEventListener("mouseleave",function(){
 		this.style.background = '#fff';
-		this.style.color = color;
+		this.style.color = color[0];
 		if(ease==easy && this.getAttribute("class")!="newText"){
-			ease.style.background = color;
+			ease.style.background = color[0];
 			ease.style.color = '#fff';
 		}
 		else if(ease==hard && this.getAttribute("class")!="newText"){
-			ease.style.background = color;
+			ease.style.background = color[0];
 			ease.style.color = '#fff';
 		}
 	});
 	item.addEventListener("mousedown",function(){
-		this.style.background = colorDark;
+		this.style.background = color[1];
 	});
 	item.addEventListener("mouseup",function(){
-		this.style.background = color;
+		this.style.background = color[0];
 	});
 	item.addEventListener("click",function(){
 		if(this.getAttribute("class")!="newText"){
-			if(this.getAttribute("class")=="easy"){setEasy()}
-				else if(this.getAttribute("class")=="hard"){setHard()}
-			}
-		else{reload();}
+			if(this.getAttribute("class")=="easy"){setEasy();}
+			else if(this.getAttribute("class")=="hard"){setHard();}
+		}
+		else{new_Game();}
 	});
 }
 function setEasy(){
 	ease=easy;
-	easy.style.background = color;hard.style.background = "#fff";
-	easy.style.color = '#fff';hard.style.color = color;
+	easy.style.background = color[1];hard.style.background = "#fff";
+	easy.style.color = '#fff';hard.style.color = color[1];
 	life=3;
 	setLives(life);
 }
 function setHard(){
 	ease=hard;
-	hard.style.background = color;easy.style.background = "#fff";
-	hard.style.color = '#fff';easy.style.color = color;
+	hard.style.background = color[1];easy.style.background = "#fff";
+	hard.style.color = '#fff';easy.style.color = color[1];
 	life=2;
 	setLives(life);
-}
-function reload()
-{
-	window.location.reload(false);
 }
 function setLives(num){
 	lives.innerHTML="";
@@ -98,6 +93,62 @@ function cardClick(){
 	else{
 		gameOver(this);
 	}
+}
+function setPaletteSize(){
+	var gSize=window.innerHeight-250;
+	cardSize=Math.min(window.innerWidth,gSize);
+	palette.style.height = cardSize+'px';
+	palette.style.width = cardSize+'px';
+	for(var i=0;i<options.length;i++)
+	{
+		options[i].style.width = (cardSize*0.28)+'px';
+		options[i].style.height = (cardSize*0.28)+'px';
+		options[i].style.border = (cardSize*0.008)+'px solid #000';
+		options[i].style.margin = (cardSize*0.01866)+'px';
+		options[i].style.borderRadius = (cardSize*0.057)+'px';
+	}
+}
+function newPalette(){
+	correct=Math.round(Math.random()*5);
+	answer = generateCol(-1);
+	options[correct].style.border = (cardSize*0.008)+'px solid '+answer[2];
+	document.querySelector('.hPane .current .r').innerHTML=answer[0][0];
+	document.querySelector('.hPane .current .g').innerHTML=answer[0][1];
+	document.querySelector('.hPane .current .b').innerHTML=answer[0][2];
+	answer=answer[1];
+	for(var i=0;i<options.length;i++)
+	{
+		if(i!=correct){
+			var tempCol=generateCol(true);
+			options[i].style.backgroundColor = tempCol[0];
+			options[i].style.border = (cardSize*0.008)+'px solid '+tempCol[1];
+		}
+		else{
+			options[i].style.backgroundColor = answer;
+		}
+		options[i].addEventListener("click",cardClick);
+	}
+	newGame.style.pointerEvents='all';
+}
+function new_Game(){
+	newGame.style.pointerEvents='none';
+	rgbKey=window.setInterval(function(){
+		var color=generateCol(-1)[0];
+		document.querySelector('.hPane .current .r').innerHTML=color[0];
+		document.querySelector('.hPane .current .g').innerHTML=color[1];
+		document.querySelector('.hPane .current .b').innerHTML=color[2];
+	}, 90);
+	paletteKey=window.setInterval(function(){
+		for(var i=0;i<options.length;i++)
+		{
+			options[i].style.backgroundColor = generateCol(false);
+		}
+	}, 90);
+	setTimeout(function() {
+		clearInterval(rgbKey);
+		clearInterval(paletteKey);
+		newPalette();
+	}, 1500);
 }
 function gameOver(item){
 	for(var i=0;i<options.length;i++){
@@ -138,28 +189,26 @@ function gameOver(item){
 		replay.addEventListener('click',function(){
 			replay.style.opacity = '0';
 			setTimeout(function() {replay.style.display='none';}, 300);
-				reload();
-			});
+
+			for(var i=0;i<options.length;i++){
+				options[i].classList.remove('fade_itemC');
+				options[i].classList.add('fade_item');
+			}
+			setPaletteSize();
+			document.querySelector('.controls').style.height = '20px';
+			document.querySelector('.hCenter').style.transform = 'translateY(0px)';
+			header.style.transition = '1.8s cubic-bezier(0.86, 0, 0.07, 1)';
+			header.style.height='200px';
+			clearInterval(rgbKey);
+			newPalette();
+		});
 	}, 1800);
 
 	document.querySelector('.hCenter').style.transition = '1.8s cubic-bezier(0.86, 0, 0.07, 1)'; 
 	document.querySelector('.hCenter').style.transform = 'translateY(-100px)';
 }
-function setPaletteSize(){
-	var gSize=window.innerHeight-250;
-	cardSize=Math.min(window.innerWidth,gSize);
-	palette.style.height = cardSize+'px';
-	palette.style.width = cardSize+'px';
-	for(var i=0;i<options.length;i++)
-	{
-		options[i].style.width = (cardSize*0.28)+'px';
-		options[i].style.height = (cardSize*0.28)+'px';
-		options[i].style.border = (cardSize*0.008)+'px solid #fff';
-		options[i].style.margin = (cardSize*0.01866)+'px';
-		options[i].style.borderRadius = (cardSize*0.057)+'px';
-	}
-}
 function init(){
+	document.querySelector('.hCenter').style.transform = 'translateY(-10px)';
 	hBackup=head.style.fontSize;
 	first.style.fontSize = '60px';
 	first.style.fontWeight = 'bold';
@@ -167,16 +216,15 @@ function init(){
 	head.style.fontSize = '0px';
 	header.style.height = window.innerHeight+'px';
 	header.classList.add('splash');
-	run=window.setInterval(function(){
+	rgbKey=window.setInterval(function(){
 		var color=generateCol(-1)[0];
 		document.querySelector('.hPane .current .r').innerHTML=color[0];
 		document.querySelector('.hPane .current .g').innerHTML=color[1];
 		document.querySelector('.hPane .current .b').innerHTML=color[2];
-	}, 90);
+	}, 80);
 	setTimeout(function() {
 		document.querySelector('.hCenter').style.transition = '1.8s cubic-bezier(0.86, 0, 0.07, 1)'; 
 		document.querySelector('.hCenter').style.transform = 'translateY(-100px)';
-
 		setTimeout(function() {
 			head.style.transition = '0.3s ease'; 
 			first.style.transition = '0.3s ease';
@@ -204,13 +252,8 @@ function init(){
 				document.querySelector('.hCenter').style.transform = 'translateY(0px)';
 				header.style.transition = '1.8s cubic-bezier(0.86, 0, 0.07, 1)';
 				header.style.height='200px';
-				clearInterval(run);
-				answer = generateCol(-1);
-				document.querySelector('.hPane .current .r').innerHTML=answer[0][0];
-				document.querySelector('.hPane .current .g').innerHTML=answer[0][1];
-				document.querySelector('.hPane .current .b').innerHTML=answer[0][2];
-				answer=answer[1];
-				options[correct].style.backgroundColor = answer;
+				clearInterval(rgbKey);
+				newPalette();
 			});
 		}, 1500);
 	}, 1000);
@@ -239,31 +282,15 @@ function main(){
 	addMouseEvent(easy);
 	setLives(life);
 
-	setColor('.hPane',color,true);
-	setColor('.controls .contain .newGame',color,false);
-	setColor('.controls .contain .hard',color,false);
-	setColor('.lives',color,false);
+	setColor('.hPane',color[0],true);
+	setColor('.controls .contain .newGame',color[0],false);
+	setColor('.controls .contain .hard',color[0],false);
+	setColor('.lives',color[0],false);
 
-	easy.style.background = color;
+	easy.style.background = color[0];
 	easy.style.color = '#fff';
 
-
-	correct=Math.round(Math.random()*5);
-	for(var i=0;i<options.length;i++)
-	{
-		if(i!=correct){
-			options[i].style.backgroundColor = generateCol(false);
-		}
-		else{
-			options[i].style.backgroundColor = answer;
-		}
-		options[i].addEventListener("click",cardClick);
-		onResize();
-
-		lives.addEventListener('click',function(){
-			//options[correct].click();
-		});
-	}
 	init();
+	onResize();
 }
 main();

@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Fira+Mono');
-@import url('https://fonts.googleapis.com/css?family=Quicksand:300,700');
+@import url('https://fonts.googleapis.com/css?family=Quicksand');
 
 *{
 	margin:0;
@@ -7,7 +6,7 @@
 	overflow: hidden;
 }
 body{
-	background-color: #121212;
+	background-color: #fff;
 	font-family: 'Quicksand', sans-serif;
 	overflow: hidden;
 }
@@ -98,6 +97,7 @@ body{
 	width: 33%;
 	margin-left: -20px;
 	float:left;
+	pointer-events: none;
 }
 .controls .newText{
 	width: 90px;
