@@ -7,9 +7,9 @@ function onResize(){
 }
 function generateCol(darkAsWell){
 	var limit=255,modify=100;
-	var r=Math.floor(Math.random()*limit);
-	var g=Math.floor(Math.random()*limit);
-	var b=Math.floor(Math.random()*limit);
+	var r=Math.min(Math.floor(Math.random() * limit + 1), limit);
+	var g=Math.min(Math.floor(Math.random() * limit + 1), limit);
+	var b=Math.min(Math.floor(Math.random() * limit + 1), limit);
 	var space="\xa0\xa0\xa0";
 	if(darkAsWell===-1){
 		return [[r,g,b],"RGB("+r+", "+g+", "+b+")","RGB("+(r-modify)+", "+(g-modify)+", "+(b-modify)+")"];
