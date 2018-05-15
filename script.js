@@ -287,7 +287,7 @@ function main(){
 	setLives(life);
 
 	console.log(color[2]);
-    document.querySelector("meta[name=theme-color]").setAttribute('content', '#ffffff');
+    document.querySelector("meta[name=theme-color]").setAttribute('content', color[2]);
 	setColor('.hPane',color[1],true);
 	setColor('.controls .contain .newGame',color[1],false);
 	setColor('.controls .contain .hard',color[1],false);
