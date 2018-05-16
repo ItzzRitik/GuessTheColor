@@ -120,10 +120,10 @@ body{
 }
 .controls .lifeWrap{
 	position: absolute;
+	width: 100px;
 	left: 0;
 	right: 0;
 	margin: auto;
-	width: 80%;
 	height: 20px;
 	line-height: 20px;	
 	padding: 2px;
