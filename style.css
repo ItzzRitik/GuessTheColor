@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css?family=Quicksand');
-@import url(http://weloveiconfonts.com/api/?family=entypo);
 
 *{
 	margin:0;
@@ -7,8 +6,9 @@
 	overflow: hidden;
 }
 body{
-	background: url("back.png") no-repeat center center fixed;
+	background: url("back.svg") no-repeat center center fixed;
 	background-color: #fff;
+	background-repeat: repeat;
 	font-family: 'Quicksand', sans-serif;
 	overflow: hidden;
 }
@@ -97,14 +97,14 @@ body{
 }
 .controls .contain{
 	overflow: visible;
-	width: 480px;	
+	width: 95%;
+	max-width: 520px;	
 	height: 20px;
 	margin: auto;
 	transition: 0.3s ease;
 }
 .controls .newGame{
 	width: 33%;
-	margin-left: -20px;
 	float:left;
 	pointer-events: none;
 }
@@ -118,18 +118,61 @@ body{
 	user-select: none;
 	transition: 0.3s ease;
 }
-.controls .lives{
+.controls .lifeWrap{
 	width: 33%;
 	height: 20px;
-	line-height: 20px;
-	text-align: center;
-	font-size: 14px;
-	font-weight: bold;
-	display: inline-block;
-	margin: 2.4px auto 0 0;
-	margin-left: 20px;
+	line-height: 20px;	
+	float: left;
+	padding: 2px;
 	user-select: none;
-	transition: 1.8s cubic-bezier(0.86, 0, 0.07, 1)
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: 1.8s cubic-bezier(0.86, 0, 0.07, 1);
+}
+
+.controls .heart {
+	position:relative;
+	width:0px;
+	height:16px;
+	float: left;
+	margin: 2px;
+	transition: 0.3s ease;
+}
+
+.controls .heart:before, .controls .heart:after {
+	position:absolute;
+	content:"";
+	left:8px;
+	top:0;
+	width:8px;
+	height:12.8px;
+	background:#F0F00F;
+	-moz-border-radius:12.8px 12.8px 0 0;
+	border-radius:12.8px 12.8px 0 0;
+	-webkit-transform:rotate(-45deg);
+	-moz-transform:rotate(-45deg);
+	-ms-transform:rotate(-45deg);
+	-o-transform:rotate(-45deg);
+	transform:rotate(-45deg);
+	-webkit-transform-origin:0 100%;
+	-moz-transform-origin:0 100%;
+	-ms-transform-origin:0 100%;
+	-o-transform-origin:0 100%;
+	transform-origin:0 100%;
+}
+.controls .heart:after {
+	left: 0;
+	-webkit-transform:rotate(45deg);
+	-moz-transform:rotate(45deg);
+	-ms-transform:rotate(45deg);
+	-o-transform:rotate(45deg);
+	transform:rotate(45deg);
+	-webkit-transform-origin:100% 100%;
+	-moz-transform-origin:100% 100%;
+	-ms-transform-origin:100% 100%;
+	-o-transform-origin:100% 100%;
+	transform-origin:100% 100%;
 }
 .controls .difficulty{
 	width: 33%;
@@ -137,8 +180,7 @@ body{
 	line-height: 20px;
 	font-size: 14px;
 	font-weight: bold;
-	float:right;
-	margin-right: -20px;
+	float:left;
 }
 .controls .easy, .controls .hard{
 	width: 50px;

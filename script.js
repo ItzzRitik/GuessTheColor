@@ -1,9 +1,34 @@
 var newGame,hard,easy,head,options,livesreplay,ease,color,correct,replayImg,replayEvent,playEvent;
-var header,hText,palette,play,rgbKey,paletteKey,cardSize,hBackup,answer,life,rgbWidth;
+var header,hText,palette,play,rgbKey,paletteKey,cardSize,hBackup,answer,life,rgbWidth,hearts,lifeVal;
+var addRule = (function(style){
+	var sheet = document.head.appendChild(style).sheet;
+	return function(selector, css){
+		var propText = Object.keys(css).map(function(p){
+			return p+":"+css[p]
+		}).join(";");
+		sheet.insertRule(selector + "{" + propText + "}", sheet.cssRules.length);
+	}
+})(document.createElement("style"));
 
 function onResize(){
 	document.body.style.height = window.innerHeight + "px";
 	setPaletteSize();
+}
+function setLives(num){
+	if(life>num)
+	{
+		for(var i=life-1;i>=num;i--)
+		{
+			hearts[i].style.width="0px";
+		}
+	}
+	else if(life<num){
+		for(var i=life;i<num;i++)
+		{
+			hearts[i].style.width="16px";
+		}
+	}
+	life=num;
 }
 function generateCol(){
 	var limit=255,modify=70;
@@ -64,27 +89,19 @@ function setEasy(){
 	ease=easy;
 	easy.style.background = color[2];hard.style.background = "#fff";
 	easy.style.color = '#fff';hard.style.color = color[2];
-	setLives(3);
+	setLives(lifeVal[0]);
 }
 function setHard(){
 	ease=hard;
 	hard.style.background = color[2];easy.style.background = "#fff";
 	hard.style.color = '#fff';easy.style.color = color[2];
-	setLives(2);
-}
-function setLives(num){
-	life=num;
-	lives.innerHTML="";
-	for(var i=0;i<life;i++)
-	{
-		lives.innerHTML+="<i class='fas fa-heart'></i> ";
-	}
+	setLives(lifeVal[1]);
 }
 function cardClick(){
 	easy.style.pointerEvents='none';
 	hard.style.pointerEvents='none';
 	if(this.style.backgroundColor != answer[1].toLowerCase()){
-		setLives(--life);
+		setLives(life-1);
 		this.classList.add('fade_item');
 		this.style.borderRadius = '0px';
 		this.style.pointerEvents = "none";
@@ -136,7 +153,7 @@ function newPalette(){
 	}
 }
 function new_Game(timeOut){
-	setLives((ease==easy)?3:2);
+	setLives((ease==easy)?lifeVal[0]:lifeVal[1]);
 	newPalette();
 	for(var i=0;i<options.length;i++){
 		options[i].style.pointerEvents='none';
@@ -302,25 +319,30 @@ function main(){
 	palette=document.querySelector('.palette');
 	options=document.querySelectorAll(".palette .item");
 	lives=document.querySelector('.lives');
+	hearts=document.querySelectorAll(".controls .heart");
 	replay=document.querySelector('.replay');
 	replayImg=document.querySelector('.replay img');
 	play=document.querySelector('.hPane .play');
 
+	lifeVal=[3,2];
+	life=0;
 	ease=easy;
-	setLives(3);
 	color = generateCol();
+	setLives(lifeVal[0]);
+	for(var i=0;i<hearts.length;i++)
+	{
+		addRule(".controls .heart:before, .controls .heart:after", {background: color[1],});
+	}
 
 	addMouseEvent(newGame);
 	addMouseEvent(hard);
 	addMouseEvent(easy);
-	setLives(life);
 
 	console.log(color[2]);
 	document.querySelector("meta[name=theme-color]").setAttribute('content', color[1]);
 	setColor('.hPane',color[1],true);
 	setColor('.controls .contain .newGame',color[1],false);
 	setColor('.controls .contain .hard',color[1],false);
-	setColor('.lives',color[1],false);
 
 	easy.style.background = color[1];
 	easy.style.color = '#fff';
@@ -334,7 +356,7 @@ function main(){
 		replay.style.opacity = '0';
 		replay.style.pointerEvents='none';
 		newGame.style.pointerEvents='none';
-		setLives((ease==easy)?3:2);
+		setLives((ease==easy)?lifeVal[0]:lifeVal[1]);
 		new_Game(3100);
 		easy.style.pointerEvents='all';
 		hard.style.pointerEvents='all';
