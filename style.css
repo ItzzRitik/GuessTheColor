@@ -97,14 +97,14 @@ body{
 }
 .controls .contain{
 	overflow: visible;
-	width: 95%;
+	width: 90%;
 	max-width: 520px;	
 	height: 20px;
 	margin: auto;
 	transition: 0.3s ease;
 }
 .controls .newGame{
-	width: 33%;
+	width: 50%;
 	float:left;
 	pointer-events: none;
 }
@@ -119,10 +119,13 @@ body{
 	transition: 0.3s ease;
 }
 .controls .lifeWrap{
-	width: 33%;
+	position: absolute;
+	left: 0;
+	right: 0;
+	margin: auto;
+	width: 80%;
 	height: 20px;
 	line-height: 20px;	
-	float: left;
 	padding: 2px;
 	user-select: none;
 	display: flex;
@@ -175,7 +178,7 @@ body{
 	transform-origin:100% 100%;
 }
 .controls .difficulty{
-	width: 33%;
+	width: 50%;
 	height: 20px;
 	line-height: 20px;
 	font-size: 14px;
@@ -260,7 +263,7 @@ body{
 
 @media only screen and (max-width: 600px) {
 	.controls .contain{
-		width: 80%;	
+		width: 90%;	
 	}
 	.hPane .current{
 		font-size: 35px;
