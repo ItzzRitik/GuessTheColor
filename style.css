@@ -6,9 +6,7 @@
 	overflow: hidden;
 }
 body{
-	background: url("back.svg") no-repeat center center fixed;
-	background-color: #fff;
-	background-repeat: repeat;
+	background: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI5MCIgaGVpZ2h0PSI5Ij4KPHJlY3Qgd2lkdGg9IjkwIiBoZWlnaHQ9IjkiIGZpbGw9IiNmMmYyZjIiPjwvcmVjdD4KPHJlY3Qgd2lkdGg9IjkwIiBoZWlnaHQ9IjIiIGZpbGw9IiNlN2U3ZTciPjwvcmVjdD4KPHJlY3QgeT0iMiIgd2lkdGg9IjkwIiBoZWlnaHQ9IjMiIGZpbGw9IiNlY2VjZWMiPjwvcmVjdD4KPC9zdmc+");
 	font-family: 'Quicksand', sans-serif;
 	overflow: hidden;
 }
